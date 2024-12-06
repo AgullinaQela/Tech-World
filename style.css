@@ -832,3 +832,58 @@ header {
     background-color: rgb(231, 168, 52);
 
 }
+
+.course-details {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    padding: 10px 15px;
+
+    font-size: 0.9rem;
+
+    color: #666;
+
+    border-top: 1px solid #ddd;
+
+    margin-top: 10px;
+
+}
+
+
+.load-more-container {
+
+    text-align: center;
+
+    margin-top: 20px;
+
+}
+
+.load-more {
+
+    padding: 10px 20px;
+
+    background-color: orange;
+
+    color: #fff;
+
+    border: none;
+
+    border-radius: 5px;
+
+    cursor: pointer;
+
+    font-size: 1rem;
+
+    text-transform: uppercase;
+
+    transition: background-color 0.3s ease;
+
+}
+
+.load-more:hover {
+
+    background-color: rgb(210, 156, 54);
+
+}
