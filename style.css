@@ -148,3 +148,49 @@ body {
     font-weight: bold;
 }
 
+.top-courses {
+    text-align: center;
+    margin: 50px 0;
+    padding-left: 10%;
+    padding-right: 10%;
+    font-family: Arial, sans-serif;
+  }
+  
+  .top-courses h2 {
+    font-size: 2rem;
+    color: orange;
+    margin-bottom: 20px;
+  }
+  
+  
+  .courses-container {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center; 
+    gap: 10px; 
+    flex-wrap: wrap; 
+  }
+  
+  
+  .course img {
+    width: 150px; 
+    height: 150px; 
+    object-fit: cover; 
+    border-radius: 8px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  
+  .course img:hover {
+    transform: scale(1.05); 
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+  }
+  
+  
+  .course h3 {
+    margin-top: 10px;
+    font-size: 1.2rem;
+    color: #333;
+  }
+  
