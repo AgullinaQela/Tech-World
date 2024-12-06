@@ -313,7 +313,7 @@ footer form {
 #about-us {
 
     padding: 40px 0;
-    background-color: #f9f9f9; /* Sfoni gri e lehtë */
+    background-color: #f9f9f9; 
     border-top: 5px solid #f39c12;
 
 }
@@ -335,7 +335,7 @@ footer form {
 
     max-width: 100%;
     height: auto;
-    border: 5px solid #f39c12; /* Kufiri i portokalltë rreth imazhit */
+    border: 5px solid #f39c12; 
 
 }
 
@@ -352,7 +352,7 @@ footer form {
 
 #about-us .about-text h3 {
 
-    color: #121212; /* Teksti i zi */
+    color: #121212; 
 
 }
 
@@ -379,7 +379,7 @@ footer form {
 #about-us .stat-box h4 {
 
     font-size: 2rem;
-    color: #f39c12; /* Numrat portokalli */
+    color: #f39c12; 
 
 }
 
@@ -387,14 +387,14 @@ footer form {
 
 #about-us .stat-box p {
 
-    color: #555555; /* Teksti gri */
+    color: #555555; 
 
 }
 
 #expert-teachers {
 
     padding: 40px 0;
-    background-color: #ffffff; /* Bardhë */
+    background-color: #ffffff; 
     border-top: 5px solid #f39c12;
 
 }
@@ -414,7 +414,7 @@ footer form {
 
 .teacher {
 
-    background-color: #f9f9f9; /* Sfoni gri e lehtë */
+    background-color: #f9f9f9; 
     border: 2px solid #f39c12;
     border-radius: 10px;
     padding: 20px;
@@ -441,7 +441,7 @@ footer form {
 
 .teacher h3 {
 
-    color: #121212; /* Zi për emrat */
+    color: #121212;
     margin-bottom: 10px;
 
 }
@@ -450,10 +450,12 @@ footer form {
 
 .teacher p {
 
-    color: #555555; /* Teksti gri */
+    color: #555555; 
     font-size: 0.9rem;
 
 }
+
+
 
 
 
