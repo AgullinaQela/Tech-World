@@ -309,233 +309,6 @@ footer form {
     color: #fff;  
 }
 
-
-#about-us {
-
-    padding: 40px 0;
-    background-color: #f9f9f9; 
-    border-top: 5px solid #f39c12;
-
-}
-
-
-
-#about-us .about-content {
-
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-
-}
-
-
-
-#about-us .about-image img {
-
-    max-width: 100%;
-    height: auto;
-    border: 5px solid #f39c12; 
-
-}
-
-
-
-#about-us .about-text {
-
-    flex: 1;
-    margin-left: 20px;
-
-}
-
-
-
-#about-us .about-text h3 {
-
-    color: #121212; 
-
-}
-
-
-
-#about-us .stats {
-
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-
-}
-
-
-
-#about-us .stat-box {
-
-    text-align: center;
-
-}
-
-
-
-#about-us .stat-box h4 {
-
-    font-size: 2rem;
-    color: #f39c12; 
-
-}
-
-
-
-#about-us .stat-box p {
-
-    color: #555555; 
-
-}
-
-#expert-teachers {
-
-    padding: 40px 0;
-    background-color: #ffffff; 
-    border-top: 5px solid #f39c12;
-
-}
-
-
-
-.teachers-container {
-
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: space-between;
-
-}
-
-
-
-.teacher {
-
-    background-color: #f9f9f9; 
-    border: 2px solid #f39c12;
-    border-radius: 10px;
-    padding: 20px;
-    text-align: center;
-    flex: 1 1 calc(33.333% - 20px);
-    max-width: calc(33.333% - 20px);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-
-}
-
-
-
-.teacher img {
-
-    border-radius: 50%;
-    border: 3px solid #f39c12;
-    max-width: 100px;
-    height: 100px;
-    margin-bottom: 10px;
-
-}
-
-
-
-.teacher h3 {
-
-    color: #121212;
-    margin-bottom: 10px;
-
-}
-
-
-
-.teacher p {
-
-    color: #555555; 
-    font-size: 0.9rem;
-
-} 
-.satisfied-students {
-
-    padding: 40px 0;
-    background-color: #f9f9f9;
-    border-top: 5px solid #f39c12;
-
-}
-
-
-
-.satisfied-students .student-reviews {
-
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 20px;
-
-}
-
-
-
-.satisfied-students .review-box {
-
-    background-color: #ffffff; 
-    border: 2px solid #f39c12;
-    border-radius: 10px;
-    padding: 30px;
-    text-align: center;
-    flex: 1 1 calc(33.333% - 20px);
-    max-width: calc(33.333% - 20px);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-
-}
-
-
-
-.satisfied-students .review-box p {
-
-    color: #555555; 
-    margin-bottom: 20px;
-
-}
-
-
-
-.satisfied-students .review-author {
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-}
-
-
-
-.satisfied-students .review-author img {
-
-    border-radius: 50%;
-    border: 3px solid #f39c12;
-    max-width: 80px;
-    height: 80px;
-    margin-bottom: 10px;
-
-}
-
-
-
-.satisfied-students .review-author h4 {
-
-    color: #121212; 
-
-}
-
-
-
-.satisfied-students .review-author span {
-
-    color: #f39c12; 
-    font-size: 1.2rem;
-
-}
-
 .about-us {
 
     display: flex;
@@ -568,17 +341,15 @@ footer form {
 
 .about-image img {
 
-    max-width: 400px;
-    height: center;
-    padding-left: 10%;
-    
+    max-width: 500px;
+    height: auto;
+
 }
 
 
 
 .about-text {
 
-    text-align: center;
     width: 60%;
     margin-left: 20px;
 
@@ -602,10 +373,12 @@ footer form {
     margin-right: 20px;
     margin-bottom: 35px;
     padding: 20px;
-    background-color: #FF6A00; 
+    background-color: #FF6A00; /* Orange Background for Stats */
     color: white;
-    border-radius: 8px
+    border-radius: 8px;
+
 }
+
 
 
 .stat-box h4 {
@@ -624,14 +397,240 @@ footer form {
 
 }
 
-.satisfied-students h2{
 
-    text-align: center;
-    padding-bottom: 30px;
+
+#about-us {
+
+    padding: 40px 0;
+    background-color: #f9f9f9; /* Sfoni gri e lehtë */
+    border-top: 5px solid #f39c12;
 
 }
 
-.container h2, h1, p{
-    text-align: center;
-    padding-bottom: 10px;
+
+
+#about-us .about-content {
+
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+
 }
+
+
+
+#about-us .about-image img {
+
+    max-width: 100%;
+    height: auto;
+    border: 5px solid #f39c12; /* Kufiri i portokalltë rreth imazhit */
+
+}
+
+
+
+#about-us .about-text {
+
+    flex: 1;
+    margin-left: 20px;
+
+}
+
+
+
+#about-us .about-text h3 {
+
+    color: #121212; /* Teksti i zi */
+
+}
+
+
+
+#about-us .stats {
+
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+
+}
+
+
+
+#about-us .stat-box {
+
+    text-align: center;
+
+}
+
+
+
+#about-us .stat-box h4 {
+
+    font-size: 2rem;
+    color: #f39c12; /* Numrat portokalli */
+
+}
+
+
+
+#about-us .stat-box p {
+
+    color: #555555; /* Teksti gri */
+
+}
+
+
+
+/* Expert Teachers Section */
+
+#expert-teachers {
+
+    padding: 40px 0;
+    background-color: #ffffff; /* Bardhë */
+    border-top: 5px solid #f39c12;
+
+}
+
+
+
+.teachers-container {
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+
+}
+
+
+
+.teacher {
+
+    background-color: #f9f9f9; /* Sfoni gri e lehtë */
+    border: 2px solid #f39c12;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    flex: 1 1 calc(33.333% - 20px);
+    max-width: calc(33.333% - 20px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+}
+
+
+
+.teacher img {
+
+    border-radius: 50%;
+    border: 3px solid #f39c12;
+    max-width: 100px;
+    height: 100px;
+    margin-bottom: 10px;
+
+}
+
+
+
+.teacher h3 {
+
+    color: #121212; /* Zi për emrat */
+    margin-bottom: 10px;
+
+}
+
+
+
+.teacher p {
+
+    color: #555555; /* Teksti gri */
+    font-size: 0.9rem;
+
+}
+
+
+
+/* Satisfied Students Section */
+
+.satisfied-students {
+
+    padding: 40px 0;
+    background-color: #f9f9f9; /* Sfoni gri e lehtë */
+    border-top: 5px solid #f39c12;
+
+}
+
+
+
+.satisfied-students .student-reviews {
+
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+
+}
+
+
+
+.satisfied-students .review-box {
+
+    background-color: #ffffff; /* Bardhë për kutitë */
+    border: 2px solid #f39c12;
+    border-radius: 10px;
+    padding: 30px;
+    text-align: center;
+    flex: 1 1 calc(33.333% - 20px);
+    max-width: calc(33.333% - 20px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+}
+
+
+
+.satisfied-students .review-box p {
+
+    color: #555555; /* Teksti gri */
+    margin-bottom: 20px;
+
+}
+
+
+
+.satisfied-students .review-author {
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+
+
+.satisfied-students .review-author img {
+
+    border-radius: 50%;
+    border: 3px solid #f39c12;
+    max-width: 80px;
+    height: 80px;
+    margin-bottom: 10px;
+
+}
+
+
+
+.satisfied-students .review-author h4 {
+
+    color: #121212; /* Emri zi */
+
+}
+
+
+
+.satisfied-students .review-author span {
+
+    color: #f39c12; /* Vlerësimi portokalli */
+    font-size: 1.2rem;
+
+}
+
