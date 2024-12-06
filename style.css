@@ -391,4 +391,69 @@ footer form {
 
 }
 
+#expert-teachers {
+
+    padding: 40px 0;
+    background-color: #ffffff; /* Bardhë */
+    border-top: 5px solid #f39c12;
+
+}
+
+
+
+.teachers-container {
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+
+}
+
+
+
+.teacher {
+
+    background-color: #f9f9f9; /* Sfoni gri e lehtë */
+    border: 2px solid #f39c12;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    flex: 1 1 calc(33.333% - 20px);
+    max-width: calc(33.333% - 20px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+}
+
+
+
+.teacher img {
+
+    border-radius: 50%;
+    border: 3px solid #f39c12;
+    max-width: 100px;
+    height: 100px;
+    margin-bottom: 10px;
+
+}
+
+
+
+.teacher h3 {
+
+    color: #121212; /* Zi për emrat */
+    margin-bottom: 10px;
+
+}
+
+
+
+.teacher p {
+
+    color: #555555; /* Teksti gri */
+    font-size: 0.9rem;
+
+}
+
+
 
