@@ -774,3 +774,61 @@ header {
     border-bottom: 1px solid #ddd;
 
 }
+
+.courses h1{
+    text-align: center;
+}
+
+
+
+.course-card h3 {
+
+    font-size: 1.2rem;
+
+    margin: 15px 0;
+
+    color: #333;
+
+}
+
+
+.course-card p {
+
+    font-size: 0.9rem;
+
+    color: #666;
+
+    padding: 0 15px;
+
+}
+
+
+.read-more {
+
+    margin: 15px 0;
+
+    padding: 10px 20px;
+
+    background-color: orange;
+
+    color: #fff;
+
+    border: none;
+
+    border-radius: 5px;
+
+    font-size: 0.9rem;
+
+    text-transform: uppercase;
+
+    cursor: pointer;
+
+    transition: background-color 0.3s ease;
+
+}
+
+.read-more:hover {
+
+    background-color: rgb(231, 168, 52);
+
+}
