@@ -310,3 +310,85 @@ footer form {
 }
 
 
+#about-us {
+
+    padding: 40px 0;
+    background-color: #f9f9f9; /* Sfoni gri e lehtë */
+    border-top: 5px solid #f39c12;
+
+}
+
+
+
+#about-us .about-content {
+
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+
+
+#about-us .about-image img {
+
+    max-width: 100%;
+    height: auto;
+    border: 5px solid #f39c12; /* Kufiri i portokalltë rreth imazhit */
+
+}
+
+
+
+#about-us .about-text {
+
+    flex: 1;
+    margin-left: 20px;
+
+}
+
+
+
+#about-us .about-text h3 {
+
+    color: #121212; /* Teksti i zi */
+
+}
+
+
+
+#about-us .stats {
+
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+
+}
+
+
+
+#about-us .stat-box {
+
+    text-align: center;
+
+}
+
+
+
+#about-us .stat-box h4 {
+
+    font-size: 2rem;
+    color: #f39c12; /* Numrat portokalli */
+
+}
+
+
+
+#about-us .stat-box p {
+
+    color: #555555; /* Teksti gri */
+
+}
+
+
