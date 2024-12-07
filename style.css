@@ -1214,6 +1214,83 @@ body {
 }
 
 
+.hamburger {
+    display: none;
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+    color: orange;
+    cursor: pointer;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex; 
+    gap: 20px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: orange;
+}
+
+@media (max-width: 768px) {
+    .hamburger {
+        display: block; 
+    }
+
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        gap: 10px;
+        position: absolute;
+        top: 60px;
+        right: 20px;
+        background-color: black;
+        width: 200px;
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .nav-links.show {
+        display: flex; 
+    }
+
+    .nav-links a {
+        text-align: center; 
+        color: orange; 
+    }
+}
+
+.nav-links {
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease;
+    transform: translateY(-10px);
+    opacity: 0;
+}
+
+.nav-links.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+@media (min-width: 768px) {
+    .nav-links {
+        transform: none; 
+        opacity: 1; 
+        display: flex; 
+        position: static; 
+        transition: none; 
+    }
+}
+
+
 
   
   
