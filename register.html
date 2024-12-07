@@ -53,7 +53,7 @@
 
             const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[_\-]).{6,}$/;
             if (!passwordRegex.test(password)) {
-                document.getElementById('errorMessage').textContent = 'Password must contain at least one uppercase letter, one lowercase letter, one number, and one symbol (_ or -), and be at least 6 characters long.';
+                document.getElementById('errorMessage').textContent = 'Password must contain at least one uppercase letter, one lowercase letter, one number, and one symbol , and be at least 6 characters long.';
                 return false;
             }
 
