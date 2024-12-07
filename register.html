@@ -10,7 +10,7 @@
     <div class="auth-page">
         <div class="auth-card">
             <h3>Register on TechWORLD</h3>
-            <form id="registerForm" onsubmit="return validateForm()">
+            <form id="registerForm" onsubmit="return validateForm(event)">
                 <label for="username">Username</label>
                 <input type="text" id="username" placeholder="Enter your username" required>
 
@@ -31,7 +31,8 @@
     </div>
 
     <script>
-        function validateForm() {
+        function validateForm(event) {
+            event.preventDefault(); 
             document.getElementById('errorMessage').textContent = '';
 
             const username = document.getElementById('username').value;
@@ -53,7 +54,7 @@
 
             const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[_\-]).{6,}$/;
             if (!passwordRegex.test(password)) {
-                document.getElementById('errorMessage').textContent = 'Password must contain at least one uppercase letter, one lowercase letter, one number, and one symbol , and be at least 6 characters long.';
+                document.getElementById('errorMessage').textContent = 'Password must contain at least one uppercase letter, one lowercase letter, one number, and one symbol, and be at least 6 characters long.';
                 return false;
             }
 
@@ -63,10 +64,8 @@
             }
 
             alert('Register successful!');
-            
-            window.location.href = "index.html"; 
-
-            return true; 
+            window.location.href = 'index.html';
+            return true;
         }
     </script>
 </body>
