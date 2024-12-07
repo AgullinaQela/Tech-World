@@ -1198,6 +1198,21 @@ body {
     margin-left: auto;
 }
 
+.button-btn {
+    background-color: #ff6600; 
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.button-btn:hover {
+    background-color: #e55b00; 
+}
+
 
 
   
