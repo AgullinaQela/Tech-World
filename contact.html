@@ -4,185 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us - Tech Courses Website</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
     <header>
         <div class="navbar">
             <h1 class="logo">TechWORLD</h1>
-            <button class="hamburger" onclick="toggleMenu()">☰</button>
             <nav>
                 <ul>
-                        <li><a href="projekti.html">Home</a></li> 
+                        <li><a href="index.html">Home</a></li> 
                         <li><a href="about.html">About</a></li> 
-                        <li><a href="courses.html">Courses</a></li> 
-                        <li><a href="contact.html">Contact</a></li> 
-                        <li><a href="login.html">Login</a></li>
-                        <li><a href="register.html">Register</a></li>
-                       
+                        <li><a href="">Courses</a></li> 
+                        <li><a href="contact.html">Contact</a></li>
                     </ul>
                   </nav>
-                  </header>
-    <section id="contact">
-        <div class="container">
-            <h1>Contact Us</h1>
-            <p>If you have any questions or need more information, feel free to contact us through the form below:</p>
-            
-            <div class="contact-form">
-                <label for="name">Full Name:</label>
-                <input type="text" id="name" placeholder="Enter your name">
-                
-                <label for="email">Email Address:</label>
-                <input type="email" id="email" placeholder="Enter your email">
-                
-                <label for="message">Your Message:</label>
-                <textarea id="message" placeholder="Write your message"></textarea>
-
-                <button id="submitBtn">Send Message</button>
-                <p id="errorMessage" style="color: red;"></p> 
-                <p id="successMessage" style="color: green;"></p> 
+              
+              
+          
+            <div class="auth-buttons">
+                <button id="loginBtn" class="btn-header">Login</button>
+                <button id="registerBtn" class="btn-header">Register</button>
             </div>
         </div>
-    </section>
-
-    <script>
-        document.getElementById('submitBtn').addEventListener('click', function() {
-            
-            const name = document.getElementById('name').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const message = document.getElementById('message').value.trim();
-            const errorMessage = document.getElementById('errorMessage');
-            const successMessage = document.getElementById('successMessage');
-            
-            errorMessage.textContent = ''; 
-            successMessage.textContent = ''; 
-           
-            const nameRegex = /^[A-Z][a-zA-Z\s]*$/;
-            if (!nameRegex.test(name)) {
-                errorMessage.textContent = 'Full Name must start with a capital letter and contain only text.';
-                return;
-            }
-
-           
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
-                errorMessage.textContent = 'Please enter a valid email address.';
-                return;
-            }
-
-            
-            if (message.length < 5) {
-                errorMessage.textContent = 'The message must be at least 5 characters long.';
-                return;
-            }
-
-            
-            successMessage.textContent = 'Your message was sent successfully!';
-        });
-    </script>
-
-
-<div class="contact-info">
-    <h2>Our Office</h2>
-    <p>20000 Srebrenica, Prizren</p>
-    <p>Email: support@techworld.com</p>
-    <p>Phone: +383 49 123 456</p>
-</div>
-</div>
-</section>
-<section id="faq">
-<div class="faq-container">
-<h2>Frequently Asked Questions</h2>
-
-<div class="faq-item">
-    <h3 class="faq-question">What is TechWORLD?</h3>
-    <p class="faq-answer">TechWORLD is an online platform offering a wide variety of tech courses to help you enhance your skills and grow your career in the tech industry.</p>
-</div>
-
-<div class="faq-item">
-    <h3 class="faq-question">How can I enroll in a course?</h3>
-    <p class="faq-answer">You can enroll in any of our courses by visiting the 'Courses' section, choosing the course you are interested in, and clicking on the 'Enroll Now' button.</p>
-</div>
-
-<div class="faq-item">
-    <h3 class="faq-question">Do I need prior experience to take the courses?</h3>
-    <p class="faq-answer">No, most of our courses are beginner-friendly, and we provide resources to help you get started. However, some advanced courses may require prior experience or knowledge in specific areas.</p>
-</div>
-
-<div class="faq-item">
-    <h3 class="faq-question">Can I access the courses after completion?</h3>
-    <p class="faq-answer">Yes, once you've completed a course, you can access the course materials for as long as you want, even after finishing the course.</p>
-</div>
-
-<div class="faq-item">
-    <h3 class="faq-question">What payment methods do you accept?</h3>
-    <p class="faq-answer">We accept various payment methods including credit/debit cards, PayPal, and other online payment systems. You can choose your preferred method during checkout.</p>
-</div>
-</div>
-</section>
-
-
-
-
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
-
-    <footer>
-        <div class="footer-container">
-            
-            <div class="footer-section social-section">
-                <h3>TechWORLD</h3>
-                <p>Connect with us on social media and stay updated with the latest news, tips, and updates!</p>
-                <div class="social-icons">
-                  <a href="#"><i class="fab fa-facebook-f"></i></a>
-                  <a href="#"><i class="fab fa-twitter"></i></a>
-                  <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                  <a href="#"><i class="fab fa-instagram"></i></a>
-                </div>
-              </div>
-      
-                
-                <div class="footer-section">
-                  <h4>Quick Links</h4>
-                  <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Courses</a></li>
-                    <li><a href="#">Contact</a></li>
-                  </ul>
-                </div>
-          
-                
-                <div class="footer-section">
-                  <h4>Useful Links</h4>
-                  <ul>
-                    <li><a href="#">Help Center</a></li>
-                    <li><a href="#">Ask Questions</a></li>
-                    <li><a href="#">Send Feedback</a></li>
-                    <li><a href="#">Terms of Use</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
-                  </ul>
-                </div>
-          
-                
-                <div class="footer-section">
-                  <h4>Newsletter</h4>
-                  <p>Subscribe for latest updates</p>
-                  <form action="#">
-                    <input type="email" placeholder="Enter your email" required>
-                    <button type="submit">Subscribe</button>
-                  </form>
-                </div>
-              </div>
-              <div class="footer-bottom">
-                <p>Created By <a href="#">Web Designer</a> | All Rights Reserved</p>
-              </div>
-            </footer> 
-
-
-
-    <script src="script.js"></script>
-</body>
-</html>
+    </header>
