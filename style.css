@@ -536,10 +536,102 @@ footer form {
 
 }
 
+.about-us {
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 30px;
+
+}
 
 
 
+.breadcrumb {
+
+    font-size: 20px;
+    color: #999999;
+
+}
 
 
 
+.about-content {
 
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+
+}
+
+
+
+.about-image img {
+
+    max-width: 400px;
+    height: center;
+    padding-left: 10%;
+    
+}
+
+
+
+.about-text {
+
+    text-align: center;
+    width: 60%;
+    margin-left: 20px;
+
+}
+
+
+
+.stats {
+
+    display: flex;
+    margin-top: 30px;
+
+}
+
+
+
+.stat-box {
+
+    width: 30%;
+    text-align: center;
+    margin-right: 20px;
+    margin-bottom: 35px;
+    padding: 20px;
+    background-color: #FF6A00; 
+    color: white;
+    border-radius: 8px
+}
+
+
+.stat-box h4 {
+
+    font-size: 30px;
+    margin-bottom: 10px;
+
+}
+
+
+
+.stat-box p {
+
+    font-size: 16px;
+    margin: 0;
+
+}
+
+.satisfied-students h2{
+
+    text-align: center;
+    padding-bottom: 30px;
+
+}
+
+.container h2, h1, p{
+    text-align: center;
+    padding-bottom: 10px;
+}
