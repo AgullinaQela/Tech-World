@@ -997,7 +997,7 @@ p {
     transition: background-color 0.3s;
 }
 
-/* Contact Info Section */
+
 .contact-info {
     margin-top: 40px;
     font-size: 1.1rem;
@@ -1014,7 +1014,7 @@ p {
     margin-bottom: 10px;
 }
 
-/* Media Queries for Mobile */
+
 @media (max-width: 768px) {
     .navbar ul {
         flex-direction: column;
