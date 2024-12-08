@@ -1,36 +1,32 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
-    line-height: 1.6;
-}
-
-
 .navbar {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: center; 
     background-color: black;
     padding: 10px 20px;
     color: white;
     position: sticky;
+    top: 0; 
 }
 
-.navbar h1 {
-    font-size: 1.5em;
-    color: orange;
+.navbar .logo {
+    margin: 0;
+    align-self: center;
+    color: orange; 
+}
+
+nav {
+    flex-grow: 1; 
+    display: flex;
+    justify-content: flex-end; 
 }
 
 .navbar ul {
     list-style: none;
     display: flex;
     gap: 15px;
+    margin: 0;
+    padding: 0;
 }
 
 .navbar ul li a {
