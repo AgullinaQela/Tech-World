@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - TechWORLD</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="auth-page">
+        <div class="auth-card">
+            <h3>Register on TechWORLD</h3>
+            <form id="registerForm" onsubmit="return validateForm()">
+                <label for="username">Username</label>
+                <input type="text" id="username" placeholder="Enter your username" required>
+
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="Enter your email" required>
+
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Enter your password" required>
+
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" id="confirmPassword" placeholder="Confirm your password" required>
+
+                <button type="submit" class="btn">Register Now</button>
+                <p id="errorMessage" style="color:red;"></p>
+            </form>
+            <p class="switch-auth">Already have an account? <a href="login.html">Login here</a></p>
+        </div>
+    </div>
+
+    <script>
+        function validateForm() {
+            document.getElementById('errorMessage').textContent = '';
+
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            const usernameRegex = /^[A-Z][a-z]{3,15}$/;
+            if (!usernameRegex.test(username)) {
+                document.getElementById('errorMessage').textContent = 'Username must be uppercase and between 3 and 15 characters.';
+                return false;
+            }
+
+            const emailRegex = /^\S+@\S+\.\S+$/;
+            if (!emailRegex.test(email)) {
+                document.getElementById('errorMessage').textContent = 'Please enter a valid email address.';
+                return false;
+            }
+
+            const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[_\-]).{6,}$/;
+            if (!passwordRegex.test(password)) {
+                document.getElementById('errorMessage').textContent = 'Password must contain at least one uppercase letter, one lowercase letter, one number, and one symbol , and be at least 6 characters long.';
+                return false;
+            }
+
+            if (password !== confirmPassword) {
+                document.getElementById('errorMessage').textContent = 'Passwords do not match.';
+                return false;
+            }
+
+            alert('Register successful!');
+            return true; 
+        }
+    </script>
+</body>
+</html>
