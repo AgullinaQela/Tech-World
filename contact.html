@@ -4,58 +4,75 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us - Tech Courses Website</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
     <header>
         <div class="navbar">
             <h1 class="logo">TechWORLD</h1>
+            <button class="hamburger" onclick="toggleMenu()">☰</button>
             <nav>
                 <ul>
-                        <li><a href="index.html">Home</a></li> 
+                        <li><a href="projekti.html">Home</a></li> 
                         <li><a href="about.html">About</a></li> 
-                        <li><a href="">Courses</a></li> 
-                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="courses.html">Courses</a></li> 
+                        <li><a href="contact.html">Contact</a></li> 
+                        <li><a href="login.html">Login</a></li>
+                        <li><a href="register.html">Register</a></li>
+                       
                     </ul>
                   </nav>
-              
-              
-          
-            <div class="auth-buttons">
-                <button id="loginBtn" class="btn-header">Login</button>
-                <button id="registerBtn" class="btn-header">Register</button>
+                  </header>
+    <section id="contact">
+        <div class="container">
+            <h1>Contact Us</h1>
+            <p>If you have any questions or need more information, feel free to contact us through the form below:</p>
+            
+            <div class="contact-form">
+                <label for="name">Full Name:</label>
+                <input type="text" id="name" placeholder="Enter your name">
+                
+                <label for="email">Email Address:</label>
+                <input type="email" id="email" placeholder="Enter your email">
+                
+                <label for="message">Your Message:</label>
+                <textarea id="message" placeholder="Write your message"></textarea>
+
+                <button id="submitBtn">Send Message</button>
+                <p id="errorMessage" style="color: red;"></p> 
+                <p id="successMessage" style="color: green;"></p> 
             </div>
         </div>
-<<<<<<< HEAD
     </section>
 
     <script>
         document.getElementById('submitBtn').addEventListener('click', function() {
-            
+           
             const name = document.getElementById('name').value.trim();
             const email = document.getElementById('email').value.trim();
             const message = document.getElementById('message').value.trim();
             const errorMessage = document.getElementById('errorMessage');
             const successMessage = document.getElementById('successMessage');
             
-            errorMessage.textContent = ''; 
+            errorMessage.textContent = '';
             successMessage.textContent = ''; 
 
-            
+          
             const nameRegex = /^[A-Z][a-zA-Z\s]*$/;
             if (!nameRegex.test(name)) {
                 errorMessage.textContent = 'Full Name must start with a capital letter and contain only text.';
                 return;
             }
 
-            
+           
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(email)) {
                 errorMessage.textContent = 'Please enter a valid email address.';
                 return;
             }
 
-            
+        
             if (message.length < 5) {
                 errorMessage.textContent = 'The message must be at least 5 characters long.';
                 return;
@@ -69,9 +86,9 @@
 
 <div class="contact-info">
     <h2>Our Office</h2>
-    <p>123 Tech Street, Silicon Valley, CA</p>
+    <p>20000 Srebrenica, Prizren</p>
     <p>Email: support@techworld.com</p>
-    <p>Phone: +1 (555) 123-4567</p>
+    <p>Phone: +383 49 123 456</p>
 </div>
 </div>
 </section>
@@ -170,6 +187,4 @@
     <script src="script.js"></script>
 </body>
 </html>
-=======
-    </header>
->>>>>>> a29783b8dd008e98527ea3a0ffbc1e08cb07c006
+
