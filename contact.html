@@ -57,14 +57,15 @@
             
             errorMessage.textContent = ''; 
             successMessage.textContent = ''; 
-           
+
+            
             const nameRegex = /^[A-Z][a-zA-Z\s]*$/;
             if (!nameRegex.test(name)) {
                 errorMessage.textContent = 'Full Name must start with a capital letter and contain only text.';
                 return;
             }
 
-           
+            
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(email)) {
                 errorMessage.textContent = 'Please enter a valid email address.';
@@ -85,9 +86,9 @@
 
 <div class="contact-info">
     <h2>Our Office</h2>
-    <p>20000 Srebrenica, Prizren</p>
+    <p>123 Tech Street, Silicon Valley, CA</p>
     <p>Email: support@techworld.com</p>
-    <p>Phone: +383 49 123 456</p>
+    <p>Phone: +1 (555) 123-4567</p>
 </div>
 </div>
 </section>
