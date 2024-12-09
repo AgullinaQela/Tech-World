@@ -360,11 +360,13 @@ header {
 
 .navbar ul li a:hover,
 .navbar ul li a.active {
-    background-color: #ff6f00;
+    background-color: orange;
     transition: background-color 0.3s;
 }
 
-
+.container h2, h1 {
+    color: orange;
+}
 #about-us {
 
     padding: 40px 0;
