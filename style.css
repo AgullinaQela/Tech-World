@@ -1330,46 +1330,6 @@ body {
 
 
 
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f9;
-  }
-  
-  .container {
-    width: 90%;
-    margin: 0 auto;
-    padding: 20px 0;
-  }
-  
-  /* Filter Section */
-  .filter-section {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  .filter-controls {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  
-  .filter-button, .control-button {
-    padding: 8px 16px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px;
-  }
-  
-  .filter-button:hover, .control-button:hover {
-    background-color: #0056b3;
-  }
   
   /* Product Grid */
   .product-grid {
