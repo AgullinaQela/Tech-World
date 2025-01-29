@@ -1225,9 +1225,6 @@ body {
     background-color: #e55b00; 
 }
 
-
-<<<<<<< HEAD
-=======
 .hamburger {
     display: none;
     font-size: 1.5rem;
@@ -1289,7 +1286,6 @@ body {
     opacity: 1;
 }
 
->>>>>>> 50cf0e4ac10242fe1314028ea4d58736faa740de
 
 
   .product-grid {
@@ -1329,9 +1325,6 @@ body {
   .product-card p {
     font-size: 16px;
     color: #555;
-<<<<<<< HEAD
-  }
-=======
   }
 .hamburger {
     display: none;
@@ -1434,4 +1427,3 @@ nav ul li a {
        text-align: center;
     }
 }
->>>>>>> 50cf0e4ac10242fe1314028ea4d58736faa740de
