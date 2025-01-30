@@ -20,6 +20,7 @@
                     <li><a href="contact.html">Contact</a></li>
                     <li><a href="login.html">Login</a></li>
                     <li><a href="register.html">Register</a></li> 
+                    <li><a href="cart.html" class="cart-link" id="cart-icon"><i class="fas fa-shopping-cart"></i> <span id="cart-count">0</span></a></li>
                 </ul>
               </nav>
             </header>
@@ -35,16 +36,26 @@
         <img src="Images/14458.png" alt="Lenovo ThinkPad P1 Gen 4">
         <h3>Lenovo ThinkPad P1 Gen 4</h3>
         <p>€850.00</p>
+        <button onclick="goToCart()">Add to Cart</button>
+
+<script>
+    function goToCart() {
+        window.location.href = 'cart.html'; // Zëvendëso me URL-n e shportës
+    }
+</script>
+
       </div>
       <div class="product-card">
         <img src="Images/1111.png" alt="Laptop HP Zbook Fury G7 15 ">
         <h3>Laptop HP Zbook Fury G7 15 </h3>
         <p>€670.00</p>
+        <button class="add-to-cart">Add to Cart</button>
       </div>
       <div class="product-card">
         <img src="Images/dfrt.png" alt="Laptop MSI Thin 15 B12UCX ">
         <h3>Laptop MSI Thin 15 B12UCX</h3>
         <p>€700.00</p>
+        <button class="add-to-cart">Add to Cart</button>
       </div>
     </div>
 
@@ -54,16 +65,21 @@
         <img src="Images/gywbdfuhd.png" alt="Laptop DELL NB Vostro 3530">
         <h3>Laptop DELL NB Vostro 3530</h3>
         <p>€540.00</p>
+        <button class="add-to-cart">Add to Cart</button>
       </div>
+
       <div class="product-card">
         <img src="Images/hjhjhj.png" alt="Laptop HP Probook">
         <h3>Laptop HP Probook</h3>
         <p>€500.00</p>
+        <button class="add-to-cart">Add to Cart</button>
       </div>
+
       <div class="product-card">
         <img src="Images/Recovered_SHABLLONI-FINAL.png" alt="Laptop DELL Latitude">
         <h3>Laptop DELL Latitude</h3>
         <p>€370.00</p>
+        <button class="add-to-cart">Add to Cart</button>
       </div>
     </div>
   </div>

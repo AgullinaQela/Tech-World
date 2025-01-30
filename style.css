@@ -1326,6 +1326,67 @@ body {
     font-size: 16px;
     color: #555;
   }
+  /* Për shportën që do të shfaqet lart */
+.cart {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #ff9900;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    display: none; /* Fillimisht e fshehur */
+    border-radius: 5px;
+    z-index: 1000;
+  }
+  
+  /* Butoni "Add to Cart" */
+  .add-to-cart {
+    background-color: #ff9900;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 5px;
+    margin-top: 10px;
+  }
+  
+  /* Butoni "Add to Cart" në hover */
+  .add-to-cart:hover {
+    background-color: #cc7a00;
+  }
+
+  /* Stili për shportën në meny */
+.navbar .cart-link {
+    background-color: #ff9900;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 14px;
+    text-decoration: none;
+    display: inline-block;
+    position: relative;
+  }
+  
+  .navbar .cart-link i {
+    margin-right: 8px;
+  }
+  
+  /* Aktivizo ikona e shportës kur ka artikuj */
+  .navbar .cart-link.active {
+    background-color: #cc7a00;
+  }
+  
+  /* Për qarkullimin e shportës me artikuj */
+  .navbar .cart-link.active i {
+    color: #fff;
+  }
+  
+  .navbar .cart-link:hover {
+    background-color: #cc7a00;
+  }
+  
 .hamburger {
     display: none;
     font-size: 24px;

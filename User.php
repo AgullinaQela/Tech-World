@@ -12,7 +12,7 @@ class User {
 
         $stmt = $this->conn->prepare($query);
 
-      
+        
         $stmt->bindParam(':name', $name);
         $stmt->bindParam(':surname', $surname);
         $stmt->bindParam(':email', $email);
