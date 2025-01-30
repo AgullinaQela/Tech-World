@@ -2,30 +2,31 @@
 include_once 'Database.php';
 include_once 'User.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    
-    $username = trim($_POST['username']);
-    $email = trim($_POST['email']);
-    $password = trim($_POST['password']);
-    $confirmPassword = trim($_POST['confirmPassword']);
-
-    
-    if ($password !== $confirmPassword) {
-        die("Passwords do not match.");
-    }
-
-
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $db = new Database();
-    $conn = $db->getConnection();
-    $user = new User($conn);
+    $connection = $db->getConnection();
+    $user = new User($connection);
 
+    
+    $name = $_POST['name'];
+    $surname = $_POST['surname'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
 
-    $registrationResult = $user->register($username, $email, $password);
-
-    if ($registrationResult === true) {
-        echo "Registration successful.";
+   
+    if ($user->register($name, $surname, $email, $password)) {
+        header("Location: login.php"); 
+        exit;
     } else {
-        echo $registrationResult; 
+        echo "Error registering user!";
     }
 }
 ?>
+
+<form action="register.php" method="POST">
+    Name: <input type="text" name="name" required><br>
+    Surname: <input type="text" name="surname" required><br>
+    Email: <input type="email" name="email" required><br>
+    Password: <input type="password" name="password" required><br>
+    <button type="submit">Register</button>
+</form>
