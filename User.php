@@ -1,59 +1,48 @@
 <?php
 class User {
     private $conn;
-    private $table_name = "users"; 
+    private $table_name = 'useri';
 
-    
     public function __construct($db) {
         $this->conn = $db;
     }
 
-    
-    public function register($username, $email, $password) {
-       
-        $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+    public function register($name, $surname, $email, $password) {
+        $query = "INSERT INTO {$this->table_name} (name, surname, email, password) VALUES (:name, :surname, :email, :password)";
 
-        
-        $query = "SELECT * FROM " . $this->table_name . " WHERE email = :email";
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(':email', $email);
-        $stmt->execute();
 
-        if ($stmt->rowCount() > 0) {
-            return "Email already exists."; 
-        }
-
-        
-        $query = "INSERT INTO " . $this->table_name . " (username, email, password, role) VALUES (:username, :email, :password, 'user')";
-        $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(':username', $username);
+        // Bind parameters
+        $stmt->bindParam(':name', $name);
+        $stmt->bindParam(':surname', $surname);
         $stmt->bindParam(':email', $email);
-        $stmt->bindParam(':password', $hashedPassword);
+        $stmt->bindParam(':password', password_hash($password, PASSWORD_DEFAULT)); // Hashing the password
 
         if ($stmt->execute()) {
-            return true; 
-        } else {
-            return "Failed to register."; 
+            return true;
         }
+        return false;
     }
 
-    
     public function login($email, $password) {
-        /
-        $query = "SELECT * FROM " . $this->table_name . " WHERE email = :email";
+        $query = "SELECT id, name, surname, email, password FROM {$this->table_name} WHERE email = :email";
+
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':email', $email);
         $stmt->execute();
 
-        if ($stmt->rowCount() === 1) {
-            $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-           
-            if (password_verify($password, $user['password'])) {
-                return $user; 
+        // Check if a record exists
+        if ($stmt->rowCount() > 0) {
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            if (password_verify($password, $row['password'])) {
+                // Start the session and store user data
+                session_start();
+                $_SESSION['user_id'] = $row['id'];
+                $_SESSION['email'] = $row['email'];
+                return true;
             }
         }
-        return null; 
+        return false;
     }
 }
 ?>
