@@ -36,26 +36,19 @@
         <img src="Images/14458.png" alt="Lenovo ThinkPad P1 Gen 4">
         <h3>Lenovo ThinkPad P1 Gen 4</h3>
         <p>€850.00</p>
-        <button onclick="goToCart()">Add to Cart</button>
-
-<script>
-    function goToCart() {
-        window.location.href = 'cart.html'; // Zëvendëso me URL-n e shportës
-    }
-</script>
-
+        <button onclick="addToCart('Lenovo ThinkPad P1 Gen 4', 850.00)">Add to Cart</button>
       </div>
       <div class="product-card">
         <img src="Images/1111.png" alt="Laptop HP Zbook Fury G7 15 ">
         <h3>Laptop HP Zbook Fury G7 15 </h3>
         <p>€670.00</p>
-        <button class="add-to-cart">Add to Cart</button>
+        <button onclick="addToCart('Laptop HP Zbook Fury G7 15', 670.00)">Add to Cart</button>
       </div>
       <div class="product-card">
         <img src="Images/dfrt.png" alt="Laptop MSI Thin 15 B12UCX ">
         <h3>Laptop MSI Thin 15 B12UCX</h3>
         <p>€700.00</p>
-        <button class="add-to-cart">Add to Cart</button>
+        <button onclick="addToCart('Laptop MSI Thin 15 B12UCX', 700.00)">Add to Cart</button>
       </div>
     </div>
 
@@ -65,21 +58,21 @@
         <img src="Images/gywbdfuhd.png" alt="Laptop DELL NB Vostro 3530">
         <h3>Laptop DELL NB Vostro 3530</h3>
         <p>€540.00</p>
-        <button class="add-to-cart">Add to Cart</button>
+        <button onclick="addToCart('Laptop DELL NB Vostro 3530', 540.00)">Add to Cart</button>
       </div>
 
       <div class="product-card">
         <img src="Images/hjhjhj.png" alt="Laptop HP Probook">
         <h3>Laptop HP Probook</h3>
         <p>€500.00</p>
-        <button class="add-to-cart">Add to Cart</button>
+        <button onclick="addToCart('Laptop HP Probook', 500.00)">Add to Cart</button>
       </div>
 
       <div class="product-card">
         <img src="Images/Recovered_SHABLLONI-FINAL.png" alt="Laptop DELL Latitude">
         <h3>Laptop DELL Latitude</h3>
         <p>€370.00</p>
-        <button class="add-to-cart">Add to Cart</button>
+        <button onclick="addToCart('Laptop DELL Latitude', 370.00)">Add to Cart</button>
       </div>
     </div>
   </div>
@@ -141,6 +134,30 @@
           <p>Created By <a href="#">Web Agullina/Vlora</a> | All Rights Reserved</p>
         </div>
       </footer>
+
+      <script>
+      function addToCart(productName, price) {
+          // Ruaj produktin në localStorage
+          let cart = JSON.parse(localStorage.getItem('cart')) || [];
+          cart.push({
+              name: productName,
+              price: price
+          });
+          localStorage.setItem('cart', JSON.stringify(cart));
+
+          // Përditëso numëruesin e shportës
+          document.getElementById('cart-count').textContent = cart.length;
+
+          // Ridrejto tek faqja e shportës
+          window.location.href = 'cart.html';
+      }
+      
+      // Ngarko numëruesin e shportës kur faqja hapet
+      window.onload = function() {
+          let cart = JSON.parse(localStorage.getItem('cart')) || [];
+          document.getElementById('cart-count').textContent = cart.length;
+      }
+      </script>
       <script src="script.js"></script>
 </body>
 </html>
