@@ -8,27 +8,40 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
     exit();
 }
 
+// Get product data
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+    $sql = "SELECT * FROM products WHERE id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $product = $result->fetch_assoc();
+}
+
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $id = $_POST['id'];
     $name = $_POST['name'];
     $price = $_POST['price'];
     
-    // Handle file upload
     if (isset($_FILES['image']) && $_FILES['image']['error'] === 0) {
         $target_dir = "Images/";
         $target_file = $target_dir . basename($_FILES["image"]["name"]);
+        move_uploaded_file($_FILES["image"]["tmp_name"], $target_file);
         
-        if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
-            // Insert into database
-            $sql = "INSERT INTO products (name, price, image) VALUES (?, ?, ?)";
-            $stmt = $conn->prepare($sql);
-            $stmt->bind_param("sds", $name, $price, $target_file);
-            
-            if ($stmt->execute()) {
-                header('Location: manage-products.php?success=1');
-                exit();
-            }
-        }
+        $sql = "UPDATE products SET name=?, price=?, image=? WHERE id=?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("sdsi", $name, $price, $target_file, $id);
+    } else {
+        $sql = "UPDATE products SET name=?, price=? WHERE id=?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("sdi", $name, $price, $id);
+    }
+    
+    if ($stmt->execute()) {
+        header('Location: manage-products.php?success=1');
+        exit();
     }
 }
 ?>
@@ -38,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Product - Admin Dashboard</title>
+    <title>Edit Product - Admin Dashboard</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -63,27 +76,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <main class="dashboard-content">
             <div class="content-header">
-                <h1>Add New Product</h1>
+                <h1>Edit Product</h1>
             </div>
 
             <div class="dashboard-form">
                 <form method="POST" enctype="multipart/form-data">
+                    <input type="hidden" name="id" value="<?php echo $product['id']; ?>">
+                    
                     <div class="form-group">
                         <label for="name">Product Name</label>
-                        <input type="text" id="name" name="name" class="form-control" required>
+                        <input type="text" id="name" name="name" class="form-control" value="<?php echo htmlspecialchars($product['name']); ?>" required>
                     </div>
 
                     <div class="form-group">
                         <label for="price">Price</label>
-                        <input type="number" id="price" name="price" step="0.01" class="form-control" required>
+                        <input type="number" id="price" name="price" step="0.01" class="form-control" value="<?php echo $product['price']; ?>" required>
                     </div>
 
                     <div class="form-group">
                         <label for="image">Product Image</label>
-                        <input type="file" id="image" name="image" class="form-control" accept="image/*" required>
+                        <input type="file" id="image" name="image" class="form-control" accept="image/*">
+                        <?php if ($product['image']): ?>
+                            <img src="<?php echo htmlspecialchars($product['image']); ?>" alt="Current Image" style="max-width: 200px; margin-top: 10px;">
+                        <?php endif; ?>
                     </div>
 
-                    <button type="submit" class="submit-btn">Add Product</button>
+                    <button type="submit" class="submit-btn">Update Product</button>
                 </form>
             </div>
         </main>

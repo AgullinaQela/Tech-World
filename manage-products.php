@@ -11,10 +11,13 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
 // Handle product deletion
 if (isset($_POST['delete_product'])) {
     $product_id = $_POST['product_id'];
-    // Add deletion logic here
+    $sql = "DELETE FROM products WHERE id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $product_id);
+    $stmt->execute();
 }
 
-// Fetch products from database
+// Get all products
 $sql = "SELECT * FROM products ORDER BY id DESC";
 $result = $conn->query($sql);
 ?>
@@ -34,16 +37,14 @@ $result = $conn->query($sql);
         
         <aside class="dashboard-sidebar">
             <div class="sidebar-header">
-                <h2>Admin Dashboard</h2>
+                <h2>Admin Panel</h2>
             </div>
-            <nav class="sidebar-menu">
+            <nav class="sidebar-nav">
                 <ul>
-                    <li><a href="dashboard.php" class="menu-item"><i class="fas fa-home"></i> Dashboard</a></li>
-                    <li><a href="manage-products.php" class="menu-item active"><i class="fas fa-shopping-cart"></i> Products</a></li>
-                    <li><a href="manage-users.php" class="menu-item"><i class="fas fa-users"></i> Users</a></li>
-                    <li><a href="manage-orders.php" class="menu-item"><i class="fas fa-shopping-bag"></i> Orders</a></li>
-                    <li><a href="settings.php" class="menu-item"><i class="fas fa-cog"></i> Settings</a></li>
-                    <li><a href="logout.php" class="menu-item"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                    <li><a href="dashboard.php"><i class="fas fa-home"></i> Dashboard</a></li>
+                    <li><a href="manage-products.php" class="active"><i class="fas fa-box"></i> Products</a></li>
+                    <li><a href="index.html"><i class="fas fa-globe"></i> View Site</a></li>
+                    <li><a href="logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
                 </ul>
             </nav>
         </aside>
@@ -51,9 +52,7 @@ $result = $conn->query($sql);
         <main class="dashboard-content">
             <div class="content-header">
                 <h1>Manage Products</h1>
-                <button class="dashboard-btn btn-primary" onclick="location.href='add-product.php'">
-                    <i class="fas fa-plus"></i> Add New Product
-                </button>
+                <a href="add-product.php" class="dashboard-btn btn-add"><i class="fas fa-plus"></i> Add New Product</a>
             </div>
 
             <div class="table-container">
@@ -64,8 +63,6 @@ $result = $conn->query($sql);
                             <th>Image</th>
                             <th>Name</th>
                             <th>Price</th>
-                            <th>Category</th>
-                            <th>Stock</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -77,20 +74,18 @@ $result = $conn->query($sql);
                                 echo "<td>" . $row['id'] . "</td>";
                                 echo "<td><img src='" . htmlspecialchars($row['image']) . "' alt='Product' style='width: 50px; height: 50px; object-fit: cover;'></td>";
                                 echo "<td>" . htmlspecialchars($row['name']) . "</td>";
-                                echo "<td>$" . number_format($row['price'], 2) . "</td>";
-                                echo "<td>" . htmlspecialchars($row['category']) . "</td>";
-                                echo "<td>" . $row['stock'] . "</td>";
+                                echo "<td>€" . number_format($row['price'], 2) . "</td>";
                                 echo "<td>
-                                        <button class='dashboard-btn btn-edit' onclick='location.href=\"edit-product.php?id=" . $row['id'] . "\"'>Edit</button>
+                                        <a href='edit-product.php?id=" . $row['id'] . "' class='dashboard-btn btn-edit'><i class='fas fa-edit'></i> Edit</a>
                                         <form method='POST' style='display: inline;' onsubmit='return confirm(\"Are you sure you want to delete this product?\");'>
                                             <input type='hidden' name='product_id' value='" . $row['id'] . "'>
-                                            <button type='submit' name='delete_product' class='dashboard-btn btn-delete'>Delete</button>
+                                            <button type='submit' name='delete_product' class='dashboard-btn btn-delete'><i class='fas fa-trash'></i> Delete</button>
                                         </form>
                                     </td>";
                                 echo "</tr>";
                             }
                         } else {
-                            echo "<tr><td colspan='7' style='text-align: center;'>No products found</td></tr>";
+                            echo "<tr><td colspan='5' style='text-align: center;'>No products found</td></tr>";
                         }
                         ?>
                     </tbody>
@@ -100,12 +95,12 @@ $result = $conn->query($sql);
     </div>
 
     <script>
-        // Toggle sidebar on mobile
+        // Toggle sidebar
         document.querySelector('.sidebar-toggle').addEventListener('click', function() {
             document.querySelector('.dashboard-sidebar').classList.toggle('active');
         });
 
-        // Close sidebar when clicking outside on mobile
+        // Close sidebar when clicking outside
         document.addEventListener('click', function(event) {
             const sidebar = document.querySelector('.dashboard-sidebar');
             const toggle = document.querySelector('.sidebar-toggle');
