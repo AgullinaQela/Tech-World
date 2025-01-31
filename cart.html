@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <h1 class="logo">TechWORLD</h1>
+            <a href="products.html" class="back-to-shop">Continue Shopping</a>
+        </div>
+    </header>
+    <span id="cart-count"></span>
+
+
+    <section class="cart-container">
+        <h1>Your Shopping Cart</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                    <th>Remove</th>
+                </tr>
+            </thead>
+            <tbody id="cart-items"></tbody>
+        </table>
+        <div class="cart-summary">
+            <h2>Total: €<span id="cart-total">0.00</span></h2>
+            <button class="checkout-btn">Proceed to Checkout</button>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            loadCart();
+        });
+
+        function loadCart() {
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            let cartItemsContainer = document.getElementById("cart-items");
+            let cartTotal = document.getElementById("cart-total");
+            cartItemsContainer.innerHTML = "";
+            let total = 0;
+
+            cart.forEach((item, index) => {
+                let row = document.createElement("tr");
+                let itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                
+                row.innerHTML = `
+                    <td>${item.name}</td>
+                    <td>€${item.price.toFixed(2)}</td>
+                    <td>
+                        <input type="number" min="1" value="${item.quantity}" onchange="updateQuantity(${index}, this.value)">
+                    </td>
+                    <td>€${itemTotal.toFixed(2)}</td>
+                    <td><button onclick="removeItem(${index})" class="remove-btn">X</button></td>
+                `;
+                cartItemsContainer.appendChild(row);
+            });
+            cartTotal.innerText = total.toFixed(2);
+        }
+
+        function updateQuantity(index, quantity) {
+            let cart = JSON.parse(localStorage.getItem("cart"));
+            cart[index].quantity = parseInt(quantity);
+            localStorage.setItem("cart", JSON.stringify(cart));
+            loadCart();
+        }
+
+        function removeItem(index) {
+            let cart = JSON.parse(localStorage.getItem("cart"));
+            cart.splice(index, 1);
+            localStorage.setItem("cart", JSON.stringify(cart));
+            loadCart();
+        }
+    </script>
+</body>
+</html>

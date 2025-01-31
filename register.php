@@ -7,15 +7,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $connection = $db->getConnection();
     $user = new User($connection);
 
-    // Get form data
+    
     $name = $_POST['name'];
     $surname = $_POST['surname'];
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    // Register the user
+   
     if ($user->register($name, $surname, $email, $password)) {
-        header("Location: login.php"); // Redirect to login page
+        header("Location: login.php"); 
         exit;
     } else {
         echo "Error registering user!";

@@ -8,13 +8,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $connection = $db->getConnection();
     $user = new User($connection);
 
-    // Get form data
+    
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    // Attempt to log in
+    
     if ($user->login($email, $password)) {
-        header("Location: index.php"); // Redirect to home page
+        header("Location: index.php"); 
         exit;
     } else {
         echo "Invalid login credentials!";

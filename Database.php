@@ -2,8 +2,8 @@
 class Database {
     private $host = 'localhost';
     private $dbname = 'techworldproject';
-    private $username = 'root'; // Change this as per your configuration
-    private $password = ''; // Change this as per your configuration
+    private $username = 'root'; 
+    private $password = ''; 
     private $conn;
 
     public function __construct() {
