@@ -36,8 +36,7 @@ require_once 'config.php';
         <p>Start Learning Today and Unlock Your Full Potential!</p>
         <button class="btn-main">Get Started</button>
     </div>
-    <button class="prev-btn">Previous</button>
-    <button class="next-btn">Next</button>
+    
 </div>
 
 <section class="top-subjects">
@@ -166,9 +165,7 @@ require_once 'config.php';
             changeBackground();
         }
 
-        document.querySelector('.next-btn').addEventListener('click', nextBackground);
-        document.querySelector('.prev-btn').addEventListener('click', prevBackground);
-
+      
         // Auto change background every 5 seconds
         setInterval(nextBackground, 5000);
 
