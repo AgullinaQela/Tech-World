@@ -1,110 +1,112 @@
-<?php
-include 'config.php';
-
-// Kontrollojmë nëse po shtohet një produkt i ri
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $name = $_POST['name'];
-    $price = $_POST['price'];
-    
-    // Menaxhimi i ngarkimit të imazhit
-    $target_dir = "Images/";
-    $target_file = $target_dir . basename($_FILES["image"]["name"]);
-    
-    if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
-        $image = $target_file;
-        
-        $sql = "INSERT INTO products (name, price, image) VALUES ('$name', $price, '$image')";
-        if ($conn->query($sql) === TRUE) {
-            echo "<div class='alert alert-success'>Produkti u shtua me sukses!</div>";
-        } else {
-            echo "<div class='alert alert-danger'>Gabim: " . $conn->error . "</div>";
-        }
-    }
-}
-
-// Marrja e të gjitha produkteve
-$sql = "SELECT * FROM products";
-$result = $conn->query($sql);
-?>
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Menaxhimi i Produkteve</title>
-    <style>
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
-            padding: 20px;
-        }
-        .product-card {
-            border: 1px solid #ddd;
-            padding: 10px;
-            text-align: center;
-        }
-        .product-card img {
-            max-width: 200px;
-            height: auto;
-        }
-        .form-container {
-            max-width: 500px;
-            margin: 20px auto;
-            padding: 20px;
-            border: 1px solid #ddd;
-        }
-        .alert {
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 4px;
-        }
-        .alert-success {
-            background-color: #d4edda;
-            color: #155724;
-        }
-        .alert-danger {
-            background-color: #f8d7da;
-            color: #721c24;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Grid</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
-    <h2>Shto Produkt të Ri</h2>
-    <div class="form-container">
-        <form method="post" action="products.php" enctype="multipart/form-data">
-            <div>
-                <label>Emri i Produktit:</label>
-                <input type="text" name="name" required>
-            </div>
-            <div>
-                <label>Çmimi:</label>
-                <input type="number" step="0.01" name="price" required>
-            </div>
-            <div>
-                <label>Imazhi:</label>
-                <input type="file" name="image" required>
-            </div>
-            <button type="submit">Shto Produkt</button>
-        </form>
-    </div>
+    <header>
+        <div class="navbar">
+            <h1 class="logo">TechWORLD</h1>
+            <button class="hamburger" onclick="toggleMenu()">☰</button>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li> 
+                    <li><a href="about.html">About</a></li> 
+                    <li><a href="courses.html">Courses</a></li> 
+                    <li><a href="Products.php">Products</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="login.html">Login</a></li>
+                    <li><a href="register.html">Register</a></li> 
+                    <li><a href="cart.html" class="cart-link" id="cart-icon">
+                        <i class="fas fa-shopping-cart"></i> 
+                        <span id="cart-count">0</span>
+                    </a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-    <h2>Produktet Ekzistuese</h2>
-    <div class="product-grid">
-        <?php
-        if ($result->num_rows > 0) {
-            while($row = $result->fetch_assoc()) {
-                echo "<div class='product-card'>";
-                echo "<img src='" . $row['image'] . "' alt='" . $row['name'] . "'>";
-                echo "<h3>" . $row['name'] . "</h3>";
-                echo "<p>Çmimi: $" . number_format($row['price'], 2) . "</p>";
-                echo "<a href='edit_product.php?id=" . $row['id'] . "'>Ndrysho</a> | ";
-                echo "<a href='delete_product.php?id=" . $row['id'] . "' onclick='return confirm(\"A jeni të sigurt?\")'>Fshi</a>";
-                echo "</div>";
+    <section class="courses">
+        <h1>Our Products</h1>
+        <p>Discover our latest tech products</p>
+
+        <div class="course-grid product-grid">
+            <?php
+            include 'config.php';
+            
+            $sql = "SELECT * FROM products";
+            $result = $conn->query($sql);
+
+            if ($result->num_rows > 0) {
+                while($row = $result->fetch_assoc()) {
+                    ?>
+                    <div class="course-card">
+                        <img src="<?php echo $row['image']; ?>" alt="<?php echo $row['name']; ?>">
+                        <div class="course-info">
+                            <h3><?php echo $row['name']; ?></h3>
+                            <p class="price">€<?php echo number_format($row['price'], 2); ?></p>
+                            <button class="enroll-btn" onclick='addToCart("<?php echo $row['name']; ?>", <?php echo $row['price']; ?>)'>
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <?php
+                }
+            } else {
+                echo "<p>No products available at the moment.</p>";
             }
-        } else {
-            echo "<p>Nuk ka produkte për të shfaqur.</p>";
-        }
-        ?>
-    </div>
+            ?>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <h3>TechWORLD</h3>
+            <p>Join us in exploring the world of technology.</p>
+            <ul class="socials">
+                <li><a href="#"><i class="fab fa-facebook"></i></a></li>
+                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                <li><a href="#"><i class="fab fa-youtube"></i></a></li>
+                <li><a href="#"><i class="fab fa-linkedin"></i></a></li>
+            </ul>
+        </div>
+        <div class="footer-bottom">
+            <p>Created By <a href="#">Web Agullina/Vlora</a> | All Rights Reserved</p>
+        </div>
+    </footer>
+
+    <script>
+    function addToCart(productName, price) {
+        // Ruaj produktin në localStorage
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        cart.push({
+            name: productName,
+            price: price
+        });
+        localStorage.setItem('cart', JSON.stringify(cart));
+
+        // Përditëso numëruesin e shportës
+        document.getElementById('cart-count').textContent = cart.length;
+
+        // Ridrejto tek faqja e shportës
+        window.location.href = 'cart.html';
+    }
+    
+    // Ngarko numëruesin e shportës kur faqja hapet
+    window.onload = function() {
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        document.getElementById('cart-count').textContent = cart.length;
+    }
+
+    function toggleMenu() {
+        var nav = document.querySelector('nav');
+        nav.classList.toggle('active');
+    }
+    </script>
 </body>
 </html>
