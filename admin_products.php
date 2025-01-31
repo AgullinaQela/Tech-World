@@ -1,7 +1,6 @@
 <?php
 include 'config.php';
 
-// Marrja e të gjitha produkteve
 $sql = "SELECT * FROM products";
 $result = $conn->query($sql);
 ?>
@@ -86,4 +85,17 @@ $result = $conn->query($sql);
                         echo "<td>" . $row['name'] . "</td>";
                         echo "<td>€" . number_format($row['price'], 2) . "</td>";
                         echo "<td>
-                                <a href='admin_edit_product.php?id=" . $row['id'] . "' class='
+                                <a href='admin_edit_product.php?id=" . $row['id'] . "' class='btn-edit'>Ndrysho</a>
+                                <a href='admin_delete_product.php?id=" . $row['id'] . "' class='btn-delete' onclick='return confirm(\"A jeni të sigurt?\")'>Fshi</a>
+                              </td>";
+                        echo "</tr>";
+                    }
+                } else {
+                    echo "<tr><td colspan='5'>Nuk ka produkte për të shfaqur.</td></tr>";
+                }
+                ?>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

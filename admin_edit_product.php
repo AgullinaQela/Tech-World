@@ -2,31 +2,31 @@
 include 'config.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $id = $_POST['id'];
-    $name = pastroTeDhena($conn, $_POST['name']);
-    $price = pastroTeDhena($conn, $_POST['price']);
-    
-    $te_dhenat = array(
-        'name' => $name,
-        'price' => $price
-    );
+    $id = (int)$_POST['id'];
+    $name = mysqli_real_escape_string($conn, $_POST['name']);
+    $price = mysqli_real_escape_string($conn, $_POST['price']);
     
     if (!empty($_FILES['image']['name'])) {
         $target_dir = "Images/";
         $target_file = $target_dir . basename($_FILES["image"]["name"]);
         
         if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
-            $te_dhenat['image'] = $target_file;
+            $sql = "UPDATE products SET name='$name', price='$price', image='$target_file' WHERE id=$id";
         }
+    } else {
+        $sql = "UPDATE products SET name='$name', price='$price' WHERE id=$id";
     }
     
-    if(perditesoTeDhena($conn, 'products', $te_dhenat, "id = $id")) {
-        header("Location: admin_products.php");
+    if ($conn->query($sql)) {
+        header("Location: admin_products.php?message=Produkti u përditësua me sukses!");
         exit();
+    } else {
+        $error = "Gabim gjatë përditësimit: " . $conn->error;
     }
 } else {
-    $id = $_GET['id'];
-    $result = lexoTeDhena($conn, 'products', "WHERE id = $id");
+    $id = (int)$_GET['id'];
+    $sql = "SELECT * FROM products WHERE id=$id";
+    $result = $conn->query($sql);
     $product = $result->fetch_assoc();
 }
 ?>
@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin - Ndrysho Produkt</title>
+    <title>Ndrysho Produkt</title>
     <link rel="stylesheet" href="style.css">
     <style>
         .form-container {
@@ -49,15 +49,44 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         .form-group {
             margin-bottom: 15px;
         }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
         .current-image {
             max-width: 200px;
             margin: 10px 0;
+        }
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin-right: 10px;
+        }
+        .btn-secondary {
+            background-color: #666;
+        }
+        .error {
+            color: red;
+            margin-bottom: 15px;
         }
     </style>
 </head>
 <body>
     <div class="form-container">
         <h2>Ndrysho Produkt</h2>
+        <?php if (isset($error)) echo "<p class='error'>$error</p>"; ?>
         
         <form method="post" action="admin_edit_product.php" enctype="multipart/form-data">
             <input type="hidden" name="id" value="<?php echo $product['id']; ?>">
@@ -83,7 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
             
             <button type="submit" class="btn">Ruaj Ndryshimet</button>
-            <a href="admin_products.php" class="btn" style="background-color: #666;">Kthehu</a>
+            <a href="admin_products.php" class="btn btn-secondary">Kthehu</a>
         </form>
     </div>
 </body>

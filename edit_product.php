@@ -6,7 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $name = $_POST['name'];
     $price = $_POST['price'];
     
-    // Kontrollojmë nëse është ngarkuar një imazh i ri
+ 
     if (!empty($_FILES['image']['name'])) {
         $target_dir = "Images/";
         $target_file = $target_dir . basename($_FILES["image"]["name"]);
