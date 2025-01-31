@@ -1,4 +1,5 @@
 <?php
+session_start();
 include_once 'Database.php';
 include_once 'User.php';
 
@@ -8,25 +9,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $user = new User($connection);
 
     // Get form data
-    $name = $_POST['name'];
-    $surname = $_POST['surname'];
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    // Register the user
-    if ($user->register($name, $surname, $email, $password)) {
-        header("Location: login.php"); // Redirect to login page
+    // Attempt to log in
+    if ($user->login($email, $password)) {
+        header("Location: index.php"); // Redirect to home page
         exit;
     } else {
-        echo "Error registering user!";
+        echo "Invalid login credentials!";
     }
 }
 ?>
 
-<form action="register.php" method="POST">
-    Name: <input type="text" name="name" required><br>
-    Surname: <input type="text" name="surname" required><br>
+<form action="login.php" method="POST">
     Email: <input type="email" name="email" required><br>
     Password: <input type="password" name="password" required><br>
-    <button type="submit">Register</button>
+    <button type="submit">Login</button>
 </form>
