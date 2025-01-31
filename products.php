@@ -30,50 +30,113 @@
         </div>
     </header>
 
-    <section class="courses">
-        <h1>Our Products</h1>
-        <p>Discover our latest tech products</p>
+    <br>
 
-        <div class="course-grid product-grid">
+    <section class="courses">
+        <h1>Products</h1>
+        <div class="product-grid"> 
             <?php
             include 'config.php';
             
-            $sql = "SELECT * FROM products";
+            // First three products
+            $sql = "SELECT * FROM products LIMIT 3";
             $result = $conn->query($sql);
 
             if ($result->num_rows > 0) {
                 while($row = $result->fetch_assoc()) {
                     ?>
-                    <div class="course-card">
-                        <img src="<?php echo $row['image']; ?>" alt="<?php echo $row['name']; ?>">
-                        <div class="course-info">
-                            <h3><?php echo $row['name']; ?></h3>
-                            <p class="price">€<?php echo number_format($row['price'], 2); ?></p>
-                            <button class="enroll-btn" onclick='addToCart("<?php echo $row['name']; ?>", <?php echo $row['price']; ?>)'>
-                                Add to Cart
-                            </button>
-                        </div>
+                    <div class="product-card">
+                        <img src="<?php echo htmlspecialchars($row['image']); ?>" 
+                             alt="<?php echo htmlspecialchars($row['name']); ?>">
+                        <h3><?php echo htmlspecialchars($row['name']); ?></h3>
+                        <p>€<?php echo number_format($row['price'], 2); ?></p>
+                        <button onclick="addToCart('<?php echo htmlspecialchars($row['name']); ?>', 
+                                                  <?php echo $row['price']; ?>)">
+                            Add to Cart
+                        </button>
                     </div>
                     <?php
                 }
-            } else {
-                echo "<p>No products available at the moment.</p>";
             }
             ?>
         </div>
+
+        <div class="product-grid">
+            <?php
+            // Next three products
+            $sql = "SELECT * FROM products LIMIT 3 OFFSET 3";
+            $result = $conn->query($sql);
+
+            if ($result->num_rows > 0) {
+                while($row = $result->fetch_assoc()) {
+                    ?>
+                    <div class="product-card">
+                        <img src="<?php echo htmlspecialchars($row['image']); ?>" 
+                             alt="<?php echo htmlspecialchars($row['name']); ?>">
+                        <h3><?php echo htmlspecialchars($row['name']); ?></h3>
+                        <p>€<?php echo number_format($row['price'], 2); ?></p>
+                        <button onclick="addToCart('<?php echo htmlspecialchars($row['name']); ?>', 
+                                                  <?php echo $row['price']; ?>)">
+                            Add to Cart
+                        </button>
+                    </div>
+                    <?php
+                }
+            }
+            $conn->close();
+            ?>
+        </div>
+
+        <div class="load-more-container">
+            <button class="load-more">Load More</button>
+        </div>
     </section>
 
+    <br>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <footer>
-        <div class="footer-content">
-            <h3>TechWORLD</h3>
-            <p>Join us in exploring the world of technology.</p>
-            <ul class="socials">
-                <li><a href="#"><i class="fab fa-facebook"></i></a></li>
-                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                <li><a href="#"><i class="fab fa-instagram"></i></a></li>
-                <li><a href="#"><i class="fab fa-youtube"></i></a></li>
-                <li><a href="#"><i class="fab fa-linkedin"></i></a></li>
-            </ul>
+        <div class="footer-container">
+            <div class="footer-section social-section">
+                <h3>TechWORLD</h3>
+                <p>Connect with us on social media and stay updated with the latest news, tips, and updates!</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Courses</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Useful Links</h4>
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Ask Questions</a></li>
+                    <li><a href="#">Send Feedback</a></li>
+                    <li><a href="#">Terms of Use</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Newsletter</h4>
+                <p>Subscribe for latest updates</p>
+                <form action="#">
+                    <input type="email" placeholder="Enter your email" required>
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
         </div>
         <div class="footer-bottom">
             <p>Created By <a href="#">Web Agullina/Vlora</a> | All Rights Reserved</p>
@@ -82,22 +145,16 @@
 
     <script>
     function addToCart(productName, price) {
-        // Ruaj produktin në localStorage
         let cart = JSON.parse(localStorage.getItem('cart')) || [];
         cart.push({
             name: productName,
             price: price
         });
         localStorage.setItem('cart', JSON.stringify(cart));
-
-        // Përditëso numëruesin e shportës
         document.getElementById('cart-count').textContent = cart.length;
-
-        // Ridrejto tek faqja e shportës
         window.location.href = 'cart.html';
     }
     
-    // Ngarko numëruesin e shportës kur faqja hapet
     window.onload = function() {
         let cart = JSON.parse(localStorage.getItem('cart')) || [];
         document.getElementById('cart-count').textContent = cart.length;
