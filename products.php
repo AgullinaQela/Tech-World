@@ -1,3 +1,11 @@
+<?php
+include 'config.php';
+
+// Marrja e të gjitha produkteve
+$sql = "SELECT * FROM products";
+$result = $conn->query($sql);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,7 +13,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product Grid</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
     <header>
@@ -17,14 +24,11 @@
                     <li><a href="index.html">Home</a></li> 
                     <li><a href="about.html">About</a></li> 
                     <li><a href="courses.html">Courses</a></li> 
-                    <li><a href="Products.php">Products</a></li>
+                    <li><a href="products.php">Products</a></li>
                     <li><a href="contact.html">Contact</a></li>
                     <li><a href="login.html">Login</a></li>
                     <li><a href="register.html">Register</a></li> 
-                    <li><a href="cart.html" class="cart-link" id="cart-icon">
-                        <i class="fas fa-shopping-cart"></i> 
-                        <span id="cart-count">0</span>
-                    </a></li>
+                    <li><a href="cart.html" class="cart-link" id="cart-icon"><i class="fas fa-shopping-cart"></i> <span id="cart-count">0</span></a></li>
                 </ul>
             </nav>
         </div>
@@ -34,56 +38,21 @@
 
     <section class="courses">
         <h1>Products</h1>
+
         <div class="product-grid"> 
             <?php
-            include 'config.php';
-            
-            // First three products
-            $sql = "SELECT * FROM products LIMIT 3";
-            $result = $conn->query($sql);
-
             if ($result->num_rows > 0) {
                 while($row = $result->fetch_assoc()) {
-                    ?>
-                    <div class="product-card">
-                        <img src="<?php echo htmlspecialchars($row['image']); ?>" 
-                             alt="<?php echo htmlspecialchars($row['name']); ?>">
-                        <h3><?php echo htmlspecialchars($row['name']); ?></h3>
-                        <p>€<?php echo number_format($row['price'], 2); ?></p>
-                        <button onclick="addToCart('<?php echo htmlspecialchars($row['name']); ?>', 
-                                                  <?php echo $row['price']; ?>)">
-                            Add to Cart
-                        </button>
-                    </div>
-                    <?php
+                    echo '<div class="product-card">';
+                    echo '<img src="' . htmlspecialchars($row['image']) . '" alt="' . htmlspecialchars($row['name']) . '">';
+                    echo '<h3>' . htmlspecialchars($row['name']) . '</h3>';
+                    echo '<p>€' . number_format($row['price'], 2) . '</p>';
+                    echo '<button onclick="addToCart(\'' . htmlspecialchars($row['name']) . '\', ' . $row['price'] . ')">Add to Cart</button>';
+                    echo '</div>';
                 }
+            } else {
+                echo "<p>No products found</p>";
             }
-            ?>
-        </div>
-
-        <div class="product-grid">
-            <?php
-            // Next three products
-            $sql = "SELECT * FROM products LIMIT 3 OFFSET 3";
-            $result = $conn->query($sql);
-
-            if ($result->num_rows > 0) {
-                while($row = $result->fetch_assoc()) {
-                    ?>
-                    <div class="product-card">
-                        <img src="<?php echo htmlspecialchars($row['image']); ?>" 
-                             alt="<?php echo htmlspecialchars($row['name']); ?>">
-                        <h3><?php echo htmlspecialchars($row['name']); ?></h3>
-                        <p>€<?php echo number_format($row['price'], 2); ?></p>
-                        <button onclick="addToCart('<?php echo htmlspecialchars($row['name']); ?>', 
-                                                  <?php echo $row['price']; ?>)">
-                            Add to Cart
-                        </button>
-                    </div>
-                    <?php
-                }
-            }
-            $conn->close();
             ?>
         </div>
 
@@ -91,8 +60,6 @@
             <button class="load-more">Load More</button>
         </div>
     </section>
-
-    <br>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <footer>
@@ -144,26 +111,28 @@
     </footer>
 
     <script>
-    function addToCart(productName, price) {
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-        cart.push({
-            name: productName,
-            price: price
-        });
-        localStorage.setItem('cart', JSON.stringify(cart));
-        document.getElementById('cart-count').textContent = cart.length;
-        window.location.href = 'cart.html';
-    }
-    
-    window.onload = function() {
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-        document.getElementById('cart-count').textContent = cart.length;
-    }
+        function addToCart(productName, price) {
+            // Ruaj produktin në localStorage
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.push({
+                name: productName,
+                price: price
+            });
+            localStorage.setItem('cart', JSON.stringify(cart));
 
-    function toggleMenu() {
-        var nav = document.querySelector('nav');
-        nav.classList.toggle('active');
-    }
+            // Përditëso numëruesin e shportës
+            document.getElementById('cart-count').textContent = cart.length;
+
+            // Ridrejto tek faqja e shportës
+            window.location.href = 'cart.html';
+        }
+        
+        // Ngarko numëruesin e shportës kur faqja hapet
+        window.onload = function() {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            document.getElementById('cart-count').textContent = cart.length;
+        }
     </script>
+    <script src="script.js"></script>
 </body>
 </html>
