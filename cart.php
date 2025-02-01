@@ -51,7 +51,7 @@ if (!empty($_SESSION['cart'])) {
             <div class="empty-cart">
                 <i class="fas fa-shopping-cart"></i>
                 <p>Your cart is empty</p>
-                <a href="products.php" class="continue-shopping">Continue Shopping</a>
+                <a href="products.html" class="continue-shopping">Continue Shopping</a>
             </div>
         <?php else: ?>
             <div class="cart-container">
