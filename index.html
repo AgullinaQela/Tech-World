@@ -24,7 +24,7 @@
               </nav>
               </div>
             </header>
-        
+
 <section class="hero">
     <div class="content">
         <h2>The Best Courses You Will Find Here!</h2>
@@ -77,7 +77,7 @@
         <div class="course">
             <img src="Images/pic6.svg" alt="Course 5">
             <h3>AI</h3>
-            
+
         </div>
     </div>
   </section>
@@ -97,8 +97,8 @@
               <a href="#"><i class="fab fa-instagram"></i></a>
             </div>
           </div>
-  
-            
+
+
             <div class="footer-section">
               <h4>Quick Links</h4>
               <ul>
@@ -108,8 +108,8 @@
                 <li><a href="#">Contact</a></li>
               </ul>
             </div>
-      
-           
+
+
             <div class="footer-section">
               <h4>Useful Links</h4>
               <ul>
@@ -120,8 +120,8 @@
                 <li><a href="#">Privacy Policy</a></li>
               </ul>
             </div>
-      
-            
+
+
             <div class="footer-section">
               <h4>Newsletter</h4>
               <p>Subscribe for latest updates</p>
@@ -139,18 +139,15 @@
 </body>
 </html><?php
 session_start();
-
 // Kontrollo nëse përdoruesi është i loguar
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.html");
     exit();
 }
-
 // Merr të dhënat e përdoruesit
 $userName = $_SESSION['user_name'];
 $userRole = $_SESSION['user_role'];
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>

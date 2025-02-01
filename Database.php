@@ -19,7 +19,6 @@ class Database {
     public function getConnection() {
         return $this->conn;
     }
-
     public function emailExists($email) {
         $sql = "SELECT COUNT(*) FROM users WHERE email = :email";
         $stmt = $this->conn->prepare($sql);
@@ -27,7 +26,6 @@ class Database {
         $stmt->execute();
         return $stmt->fetchColumn() > 0;
     }
-
     public function registerUser($name, $email, $password, $role = 'user') {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
         $sql = "INSERT INTO users (name, email, password, role) VALUES (:name, :email, :password, :role)";
@@ -38,7 +36,6 @@ class Database {
         $stmt->bindParam(':role', $role);
         return $stmt->execute();
     }
-
     public function loginUser($email, $password) {
         try {
             $sql = "SELECT * FROM users WHERE email = :email";
@@ -56,7 +53,6 @@ class Database {
             return false;
         }
     }
-
     public function getUserById($id) {
         $sql = "SELECT * FROM users WHERE id = :id";
         $stmt = $this->conn->prepare($sql);
@@ -64,7 +60,6 @@ class Database {
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
-
     public function getAllProducts() {
         $sql = "SELECT p.*, u.name as added_by 
                 FROM products p 
@@ -74,7 +69,6 @@ class Database {
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-
     public function addProduct($name, $description, $price, $image, $userId) {
         $sql = "INSERT INTO products (name, description, price, image, user_id) 
                 VALUES (:name, :description, :price, :image, :user_id)";
@@ -86,7 +80,6 @@ class Database {
         $stmt->bindParam(':user_id', $userId);
         return $stmt->execute();
     }
-
     public function updateProduct($id, $name, $description, $price, $image) {
         $sql = "UPDATE products 
                 SET name = :name, description = :description, 
@@ -100,14 +93,12 @@ class Database {
         $stmt->bindParam(':image', $image);
         return $stmt->execute();
     }
-
     public function deleteProduct($id) {
         $sql = "DELETE FROM products WHERE id = :id";
         $stmt = $this->conn->prepare($sql);
         $stmt->bindParam(':id', $id);
         return $stmt->execute();
     }
-
     public function getProductById($id) {
         $sql = "SELECT p.*, u.name as added_by 
                 FROM products p 
@@ -118,7 +109,6 @@ class Database {
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
-
     public function getDashboardStats() {
         $stats = [];
      
