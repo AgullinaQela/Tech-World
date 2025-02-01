@@ -20,9 +20,9 @@ require_once 'config.php';
             <ul>
                     <li><a href="index.php">Home</a></li> 
                     <li><a href="about.php">About</a></li> 
-                    <li><a href="courses.php">Courses</a></li> 
+                    <li><a href="courses.html">Courses</a></li> 
                     <li><a href="Products.php">Products</a></li>
-                    <li><a href="contact.php">Contact</a></li>
+                    <li><a href="contact.html">Contact</a></li>
                     <li><a href="login.php">Login</a></li>
                     <li><a href="register.php">Register</a></li> 
                 </ul>

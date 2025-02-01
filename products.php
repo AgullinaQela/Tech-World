@@ -1,4 +1,5 @@
 <?php
+session_start();
 include 'config.php';
 
 // Marrja e të gjitha produkteve
@@ -21,8 +22,8 @@ $result = $conn->query($sql);
             <button class="hamburger" onclick="toggleMenu()">☰</button>
             <nav>
                 <ul>
-                    <li><a href="index.html">Home</a></li> 
-                    <li><a href="about.html">About</a></li> 
+                    <li><a href="index.php">Home</a></li> 
+                    <li><a href="about.php">About</a></li> 
                     <li><a href="courses.html">Courses</a></li> 
                     <li><a href="products.php">Products</a></li>
                     <li><a href="contact.html">Contact</a></li>
