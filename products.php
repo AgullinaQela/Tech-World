@@ -2,7 +2,7 @@
 session_start();
 
 require_once 'Database.php';
-=======
+
 include 'config.php';
 
 
