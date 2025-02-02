@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - TechWORLD</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-page">
+        <div class="auth-card">
+            <h3>Login to TechWORLD</h3>
+            <form id="loginForm" action="login.php" method="POST">
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+
+                <div class="additional-options">
+                    <label for="rememberMe">
+                        <input type="checkbox" id="rememberMe">
+                        Remember Me
+                    </label>
+                    <a href="#" class="forgot-password">Forgot Password?</a>
+                </div>
+
+                <button type="submit" class="btn">Login</button>
+                
+                <p id="errorMessage" class="error"></p>
+            </form>
+            <p class="switch-auth">Don't have an account? <a href="register.html">Register here</a></p>
+        </div>
+    </div>
+    
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault(); 
+
+            
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const rememberMe = document.getElementById('rememberMe').checked;
+            const errorMessage = document.getElementById('errorMessage');
+            
+            errorMessage.textContent = ''; 
+
+            
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                errorMessage.textContent = 'Please enter a valid email address.';
+                return;
+            }
+
+          
+            const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[_-]).{6,}$/;
+            if (!passwordRegex.test(password)) {
+                errorMessage.textContent = 'Password must contain at least one uppercase letter, one lowercase letter, and one symbol .';
+                return;
+            }
+
+           
+            if (!rememberMe) {
+                errorMessage.textContent = 'Please check "Remember Me".';
+                return;
+            }
+
+            
+            window.location.href = 'index.html'; 
+
+        });
+    </script>
+      <script src="script.js"></script>
+</body>
+</html>

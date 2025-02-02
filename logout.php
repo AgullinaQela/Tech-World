@@ -4,9 +4,9 @@ session_destroy();
 
 header("Location: index.html");  
 exit();
-?>
 
-header('Location: admin-login.php');
+
+header("Location: admin-login.php");
 exit();
 ?>
 

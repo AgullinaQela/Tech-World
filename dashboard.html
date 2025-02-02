@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Admin Panel</h2>
+        <ul>
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="#">Manage Products</a></li>
+            <li><a href="#">Orders</a></li>
+            <li><a href="#">Logout</a></li>
+        </ul>
+    </div>
+    
+    <div class="main-content">
+        <h1>Manage Products</h1>
+        <button id="addProductBtn">Add Product</button>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="productTableBody">
+                <!-- Dynamic content will be loaded here -->
+            </tbody>
+        </table>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,30 +1,16 @@
 <?php
-session_start();
-require_once '../Database.php';
+include 'db.php';
 
-// Kontrollo nëse përdoruesi është admin
-if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'admin') {
-    header('Location: ../login.php');
-    exit();
-}
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
 
-$db = new Database();
-$id = $_GET['id'] ?? null;
-
-if ($id) {
-    // Get product info to delete image
-    $product = $db->getProductById($id);
-    
-    if ($product && $db->deleteProduct($id)) {
-        // Delete product image if exists
-        if ($product['image'] && file_exists('../uploads/' . $product['image'])) {
-            unlink('../uploads/' . $product['image']);
-        }
-        $_SESSION['success'] = 'Product deleted successfully';
+    $sql = "DELETE FROM products WHERE id=$id";
+    if ($conn->query($sql) === TRUE) {
+        echo "Produkti u fshi me sukses!";
     } else {
-        $_SESSION['error'] = 'Error deleting product';
+        echo "Gabim: " . $conn->error;
     }
 }
 
-header('Location: ../products.php');
-exit();
+header("Location: products.php");
+?>

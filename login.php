@@ -30,6 +30,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $_SESSION['error'] = "Email ose fjalëkalimi është i gabuar!";
         header("Location: login.php");
         exit();
+    }
+}
 
 require_once 'config.php';
 
@@ -51,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             header('Location: index.php');
             exit();
         }
->>>>>>> 2ce5b86a5188cba52cccd0aa3cae7bfc68c9f48d
+
     }
     
     $error = "Username ose password i gabuar";
@@ -172,7 +174,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 Nuk keni llogari? <a href="register.php">Regjistrohu këtu</a>
             </p>
         </form>
->>>>>>> 2ce5b86a5188cba52cccd0aa3cae7bfc68c9f48d
     </div>
 </body>
 </html>
