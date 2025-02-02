@@ -1,64 +1,87 @@
 <?php
 session_start();
-if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'admin') {
-    header("Location: ../login.html");
-    exit();
-}
-require_once '../Database.php';
-$db = new Database();
-$userId = $_GET['id'] ?? null;
-if (!$userId) {
-    header("Location: dashboard.php");
-    exit();
-}
+require_once '../config.php';
+
+// Krijo instancën e User
+$user = new User($conn);
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $name = trim($_POST['name']);
-    $email = trim($_POST['email']);
-    $role = $_POST['role'];
-    if ($db->updateUser($userId, $name, $email, $role)) {
-        $_SESSION['success'] = "Përdoruesi u përditësua me sukses!";
+    $id = $_POST['id'] ?? 0;
+    
+    $data = [
+        'name' => $_POST['name'],
+        'email' => $_POST['email'],
+        'role' => $_POST['role']
+    ];
+
+    if ($user->update($id, $data)) {
+        $_SESSION['success'] = 'User updated successfully';
+        header('Location: users.php');
+        exit();
     } else {
-        $_SESSION['error'] = "Ndodhi një gabim gjatë përditësimit!";
+        $_SESSION['error'] = 'Failed to update user';
     }
-    header("Location: dashboard.php");
-    exit();
 }
-$user = $db->getUserById($userId);
-if (!$user) {
-    header("Location: dashboard.php");
+
+$id = $_GET['id'] ?? 0;
+$userData = $user->getById($id);
+
+if (!$userData) {
+    $_SESSION['error'] = 'User not found';
+    header('Location: users.php');
     exit();
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edito Përdoruesin - Admin Dashboard</title>
+    <title>Edit User - TechWORLD</title>
     <link rel="stylesheet" href="../style.css">
 </head>
 <body>
-    <div class="admin-form">
-        <h2>Edito Përdoruesin</h2>
-        <form method="POST">
-            <div class="form-group">
-                <label>Emri:</label>
-                <input type="text" name="name" value="<?php echo htmlspecialchars($user['name']); ?>" required>
+    <?php include 'admin_header.php'; ?>
+
+    <div class="admin-container">
+        <h1>Edit User</h1>
+
+        <?php if(isset($_SESSION['error'])): ?>
+            <div class="alert alert-danger">
+                <?php 
+                    echo $_SESSION['error'];
+                    unset($_SESSION['error']);
+                ?>
             </div>
+        <?php endif; ?>
+
+        <form method="post" class="admin-form">
+            <input type="hidden" name="id" value="<?php echo $userData['id']; ?>">
+            
+            <div class="form-group">
+                <label>Name:</label>
+                <input type="text" name="name" value="<?php echo htmlspecialchars($userData['username']); ?>" required>
+            </div>
+
             <div class="form-group">
                 <label>Email:</label>
-                <input type="email" name="email" value="<?php echo htmlspecialchars($user['email']); ?>" required>
+                <input type="email" name="email" value="<?php echo htmlspecialchars($userData['email']); ?>" required>
             </div>
+
             <div class="form-group">
-                <label>Roli:</label>
-                <select name="role">
-                    <option value="user" <?php echo $user['role'] == 'user' ? 'selected' : ''; ?>>User</option>
-                    <option value="admin" <?php echo $user['role'] == 'admin' ? 'selected' : ''; ?>>Admin</option>
+                <label>Role:</label>
+                <select name="role" required>
+                    <option value="user" <?php echo $userData['role'] == 'user' ? 'selected' : ''; ?>>User</option>
+                    <option value="admin" <?php echo $userData['role'] == 'admin' ? 'selected' : ''; ?>>Admin</option>
                 </select>
             </div>
-            <button type="submit" class="btn">Ruaj Ndryshimet</button>
-            <a href="dashboard.php" class="btn btn-secondary">Kthehu</a>
+
+            <div class="form-buttons">
+                <button type="submit" class="btn-primary">Update User</button>
+                <a href="users.php" class="btn-secondary">Cancel</a>
+            </div>
         </form>
     </div>
 </body>
-</html> 
+</html>

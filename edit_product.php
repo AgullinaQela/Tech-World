@@ -1,101 +1,137 @@
 <?php
 session_start();
-require_once '../Database.php';
+require_once 'config.php';  // Changed from '../Database.php'
 
-if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'admin') {
-    header('Location: ../login.php');
+// Check if user is admin
+if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 'admin') {
+    header('Location: login.php');
     exit();
 }
-$db = new Database();
-$id = $_GET['id'] ?? null;
-if (!$id) {
-    header('Location: ../products.php');
+
+// Check if ID is provided
+if (!isset($_GET['id'])) {
+    header('Location: admin_products.php');
     exit();
 }
-$product = $db->getProductById($id);
+
+$id = (int)$_GET['id'];
+
+// Get product details
+$sql = "SELECT * FROM products WHERE id = :id";
+$stmt = $conn->prepare($sql);
+$stmt->bindParam(':id', $id);
+$stmt->execute();
+$product = $stmt->fetch(PDO::FETCH_ASSOC);
+
 if (!$product) {
-    header('Location: ../products.php');
+    header('Location: admin_products.php');
     exit();
 }
+
+// Handle form submission
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $name = trim($_POST['name']);
-    $description = trim($_POST['description']);
-    $price = floatval($_POST['price']);
+    $price = (float)$_POST['price'];
     
-   
-    $image = $product['image']; 
-    if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
-        $allowed = ['jpg', 'jpeg', 'png', 'gif'];
-        $filename = $_FILES['image']['name'];
-        $filetype = pathinfo($filename, PATHINFO_EXTENSION);
+    // Check if new image is uploaded
+    if (!empty($_FILES['image']['name'])) {
+        $target_dir = "Images/";
+        $target_file = $target_dir . basename($_FILES["image"]["name"]);
         
-        if (in_array(strtolower($filetype), $allowed)) {
-            $newname = uniqid() . '.' . $filetype;
-            if (move_uploaded_file($_FILES['image']['tmp_name'], '../uploads/' . $newname)) {
-                // Delete old image if exists
-                if ($product['image'] && file_exists('../uploads/' . $product['image'])) {
-                    unlink('../uploads/' . $product['image']);
-                }
-                $image = $newname;
+        if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
+            // Delete old image if exists
+            if (file_exists($product['image'])) {
+                unlink($product['image']);
             }
+            
+            // Update with new image
+            $sql = "UPDATE products SET name = :name, price = :price, image = :image WHERE id = :id";
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(':image', $target_file);
+        } else {
+            $_SESSION['error'] = "Gabim gjatë ngarkimit të imazhit.";
+            header("Location: edit_product.php?id=$id");
+            exit();
         }
+    } else {
+        // Update without changing image
+        $sql = "UPDATE products SET name = :name, price = :price WHERE id = :id";
+        $stmt = $conn->prepare($sql);
     }
     
-    if ($db->updateProduct($id, $name, $description, $price, $image)) {
-        $_SESSION['success'] = 'Product updated successfully';
-        header('Location: ../products.php');
+    $stmt->bindParam(':name', $name);
+    $stmt->bindParam(':price', $price);
+    $stmt->bindParam(':id', $id);
+    
+    if ($stmt->execute()) {
+        $_SESSION['success'] = "Produkti u përditësua me sukses!";
+        header('Location: admin_products.php');
         exit();
     } else {
-        $_SESSION['error'] = 'Error updating product';
+        $_SESSION['error'] = "Gabim gjatë përditësimit të produktit!";
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Product - TechWORLD</title>
-    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
+    <?php include 'admin_header.php'; ?>
+
     <div class="admin-container">
-        <h2>Edit Product</h2>
-        
-        <?php if (isset($_SESSION['error'])): ?>
-            <div class="error"><?php echo $_SESSION['error']; unset($_SESSION['error']); ?></div>
+        <div class="admin-header">
+            <h1>Edit Product</h1>
+            <a href="admin_products.php" class="btn-back">
+                <i class="fas fa-arrow-left"></i> Back to Products
+            </a>
+        </div>
+
+        <?php if(isset($_SESSION['error'])): ?>
+            <div class="alert alert-danger">
+                <?php 
+                    echo $_SESSION['error'];
+                    unset($_SESSION['error']);
+                ?>
+            </div>
         <?php endif; ?>
-        
-        <form method="POST" enctype="multipart/form-data" class="admin-form">
+
+        <form method="post" enctype="multipart/form-data" class="edit-form">
             <div class="form-group">
                 <label>Product Name:</label>
                 <input type="text" name="name" value="<?php echo htmlspecialchars($product['name']); ?>" required>
             </div>
             
             <div class="form-group">
-                <label>Description:</label>
-                <textarea name="description" required><?php echo htmlspecialchars($product['description']); ?></textarea>
-            </div>
-            
-            <div class="form-group">
                 <label>Price (€):</label>
-                <input type="number" name="price" step="0.01" value="<?php echo $product['price']; ?>" required>
+                <input type="number" step="0.01" name="price" value="<?php echo $product['price']; ?>" required>
             </div>
             
             <div class="form-group">
                 <label>Current Image:</label>
-                <img src="../uploads/<?php echo htmlspecialchars($product['image']); ?>" 
-                     alt="Current product image" style="max-width: 200px;">
+                <img src="<?php echo htmlspecialchars($product['image']); ?>" 
+                     alt="<?php echo htmlspecialchars($product['name']); ?>"
+                     class="product-image-preview">
             </div>
             
             <div class="form-group">
-                <label>New Image (leave empty to keep current):</label>
-                <input type="file" name="image">
+                <label>New Image (optional):</label>
+                <input type="file" name="image" accept="image/*">
             </div>
             
-            <button type="submit" class="btn">Update Product</button>
-            <a href="../products.php" class="btn btn-secondary">Cancel</a>
+            <div class="button-group">
+                <button type="submit" class="btn-save">
+                    <i class="fas fa-save"></i> Save Changes
+                </button>
+                <a href="admin_products.php" class="btn-cancel">Cancel</a>
+            </div>
         </form>
     </div>
 </body>
-</html> 
+</html>

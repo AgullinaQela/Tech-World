@@ -132,7 +132,7 @@ $products = $db->getAllProducts();
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2024 TechWORLD. All rights reserved.</p>
+            <p>&copy; 2024 TechAgullinaVlora. All rights reserved.</p>
         </div>
     </footer>
 

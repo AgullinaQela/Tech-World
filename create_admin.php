@@ -1,36 +1,30 @@
 <?php
-require_once 'config.php';
+require_once 'Database.php';
 
+$db = new Database();
 
-$check_sql = "SELECT * FROM users WHERE username = 'admin'";
-$result = $conn->query($check_sql);
-
-if ($result->num_rows > 0) {
-    echo "Admin already exists!";
-    echo "<br>You can login with:<br>";
-    echo "Username: admin<br>";
-    echo "Password: admin123";
-    exit();
-}
-
-$username = "admin";
-$password = password_hash("admin123", PASSWORD_DEFAULT);
-$email = "admin@example.com";
+$name = "Agullina";
+$email = "agullinaqela@gmail.com";
+$password = "agullina123";
 $role = "admin";
 
-$sql = "INSERT INTO users (username, password, email, role) VALUES (?, ?, ?, ?)";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("ssss", $username, $password, $email, $role);
-
-if ($stmt->execute()) {
-    echo "Admin created successfully!<br>";
-    echo "You can now login with:<br>";
-    echo "Username: admin<br>";
-    echo "Password: admin123";
+// Kontrollo nëse admin ekziston
+if (!$db->emailExists($email)) {
+    if ($db->registerUser($name, $email, $password, $role)) {
+        echo "Admin u krijua me sukses!<br>";
+        echo "Mund të logoheni me:<br>";
+        echo "Email: agullinaqela@gmail.com<br>";
+        echo "Password: agullina123";
+    } else {
+        echo "Gabim gjatë krijimit të admin!";
+    }
 } else {
-    echo "Error creating admin: " . $conn->error;
+    echo "Admin ekziston tashmë!<br>";
+    echo "Mund të logoheni me:<br>";
+    echo "Email: agullinaqela@gmail.com<br>";
+    echo "Password: agullina123";
 }
 ?>
 
 <br><br>
-<a href="login.php">Go to Login Page</a>
+<a href="login.php">Shko tek Login</a>

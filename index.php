@@ -132,7 +132,7 @@ require_once 'config.php';
             </div>
           </div>
           <div class="footer-bottom">
-            <p>Created By <a href="#">Web Agullina/Vlora</a> | All Rights Reserved</p>
+          <p>&copy; 2024 TechAgullinaVlora. All rights reserved.</p>
           </div>
         </footer>
 
