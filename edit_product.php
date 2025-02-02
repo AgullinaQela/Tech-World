@@ -1,28 +1,22 @@
 <?php
 session_start();
 require_once '../Database.php';
-
 // Kontrollo nëse përdoruesi është admin
 if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'admin') {
     header('Location: ../login.php');
     exit();
 }
-
 $db = new Database();
 $id = $_GET['id'] ?? null;
-
 if (!$id) {
     header('Location: ../products.php');
     exit();
 }
-
 $product = $db->getProductById($id);
-
 if (!$product) {
     header('Location: ../products.php');
     exit();
 }
-
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $name = trim($_POST['name']);
     $description = trim($_POST['description']);
@@ -56,7 +50,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -105,4 +98,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </form>
     </div>
 </body>
-</html>
+</html> 

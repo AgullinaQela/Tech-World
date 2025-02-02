@@ -1,25 +1,20 @@
 <?php
 session_start();
-
 if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'admin') {
     header("Location: ../login.html");
     exit();
 }
-
 require_once '../Database.php';
 $db = new Database();
-
 $userId = $_GET['id'] ?? null;
 if (!$userId) {
     header("Location: dashboard.php");
     exit();
 }
-
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $name = trim($_POST['name']);
     $email = trim($_POST['email']);
     $role = $_POST['role'];
-
     if ($db->updateUser($userId, $name, $email, $role)) {
         $_SESSION['success'] = "Përdoruesi u përditësua me sukses!";
     } else {
@@ -28,14 +23,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     header("Location: dashboard.php");
     exit();
 }
-
 $user = $db->getUserById($userId);
 if (!$user) {
     header("Location: dashboard.php");
     exit();
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -68,4 +61,4 @@ if (!$user) {
         </form>
     </div>
 </body>
-</html>
+</html> 

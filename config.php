@@ -1,13 +1,47 @@
 <?php
-$servername = "localhost";
-$username = "root"; // Ndryshoje nëse është e nevojshme
-$password = ""; // Ndryshoje nëse është e nevojshme
-$dbname = "techworldproject";
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
-$conn = new mysqli($servername, $username, $password, $dbname);
+$host = 'localhost';
+$dbname = 'techworldproject';
+$username = 'root';
+$password = '';
 
-// Kontrollo lidhjen
-if ($conn->connect_error) {
-    die("Lidhja me bazën e të dhënave dështoi: " . $conn->connect_error);
+try {
+    $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch(PDOException $e) {
+    die("Connection failed: " . $e->getMessage());
+}
+
+// Set UTF-8
+$conn->exec("SET NAMES 'utf8'");
+
+// CRUD Functions
+function shtoTeDhena($conn, $tabela, $te_dhenat) {
+    $kolonat = implode(", ", array_keys($te_dhenat));
+    $vlerat = "'" . implode("', '", array_values($te_dhenat)) . "'";
+    $sql = "INSERT INTO $tabela ($kolonat) VALUES ($vlerat)";
+    return $conn->exec($sql);
+}
+
+function lexoTeDhena($conn, $tabela, $kushti = "") {
+    $sql = "SELECT * FROM $tabela $kushti";
+    return $conn->query($sql);
+}
+
+function perditesoTeDhena($conn, $tabela, $te_dhenat, $kushti) {
+    $updates = array();
+    foreach($te_dhenat as $kolona => $vlera) {
+        $updates[] = "$kolona = '$vlera'";
+    }
+    $updates = implode(", ", $updates);
+    $sql = "UPDATE $tabela SET $updates WHERE $kushti";
+    return $conn->exec($sql);
+}
+
+function fshiTeDhena($conn, $tabela, $kushti) {
+    $sql = "DELETE FROM $tabela WHERE $kushti";
+    return $conn->exec($sql);
 }
 ?>

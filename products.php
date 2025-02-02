@@ -1,10 +1,6 @@
 <?php
 session_start();
-
 require_once 'Database.php';
-
-include 'config.php';
-
 
 $db = new Database();
 $products = $db->getAllProducts();
@@ -26,12 +22,11 @@ $products = $db->getAllProducts();
             <button class="hamburger" onclick="toggleMenu()">☰</button>
             <nav>
                 <ul>
-
                     <li><a href="index.php">Home</a></li>
                     <li><a href="about.php">About</a></li>
-                    <li><a href="courses.php">Courses</a></li>
-                    <li><a href="products.php">Products</a></li>
-                    <li><a href="contact.php">Contact</a></li>
+                    <li><a href="courses.html">Courses</a></li>
+                    <li><a href="products.php" class="active">Products</a></li>
+                    <li><a href="contact.html">Contact</a></li>
                     <?php if(isset($_SESSION['user_id'])): ?>
                         <?php if($_SESSION['user_role'] == 'admin'): ?>
                             <li><a href="admin/dashboard.php">Dashboard</a></li>
@@ -47,76 +42,150 @@ $products = $db->getAllProducts();
                             <span id="cart-count">0</span>
                         </a>
                     </li>
-
-                <li><a href="index.php">Home</a></li> 
-                    <li><a href="about.php">About</a></li> 
-                    <li><a href="courses.html">Courses</a></li> 
-                    <li><a href="Products.php">Products</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                    <li><a href="login.php">Login</a></li>
-                    <li><a href="register.php">Register</a></li> 
-                    <li><a href="cart.html" class="cart-link" id="cart-icon"><i class="fas fa-shopping-cart"></i> <span id="cart-count">0</span></a></li>
-
                 </ul>
             </nav>
         </div>
     </header>
 
     <section class="courses">
-        <h1>Products</h1>
+        <h1>Our Products</h1>
         
-        <?php if(isset($_SESSION['user_role']) && $_SESSION['user_role'] == 'admin'): ?>
-            <div class="admin-controls">
-                <a href="admin/add_product.php" class="btn-add">Add New Product</a>
+        <?php if(isset($_SESSION['success'])): ?>
+            <div class="alert alert-success">
+                <?php 
+                    echo $_SESSION['success'];
+                    unset($_SESSION['success']);
+                ?>
             </div>
         <?php endif; ?>
 
+        <?php if(isset($_SESSION['error'])): ?>
+            <div class="alert alert-danger">
+                <?php 
+                    echo $_SESSION['error'];
+                    unset($_SESSION['error']);
+                ?>
+            </div>
+        <?php endif; ?>
+        
         <div class="product-grid">
-            <?php foreach($products as $product): ?>
-                <div class="product-card">
-                    <img src="uploads/<?php echo htmlspecialchars($product['image']); ?>" 
-                         alt="<?php echo htmlspecialchars($product['name']); ?>">
-                    <h3><?php echo htmlspecialchars($product['name']); ?></h3>
-                    <p class="price">€<?php echo number_format($product['price'], 2); ?></p>
-                    <p class="added-by">Added by: <?php echo htmlspecialchars($product['added_by']); ?></p>
-                    
-                    <button onclick="addToCart('<?php echo htmlspecialchars($product['name']); ?>', 
-                                              <?php echo $product['price']; ?>)">
-                        Add to Cart
-                    </button>
-
-                    <?php if(isset($_SESSION['user_role']) && $_SESSION['user_role'] == 'admin'): ?>
-                        <div class="admin-actions">
-                            <a href="admin/edit_product.php?id=<?php echo $product['id']; ?>" 
-                               class="btn-edit">Edit</a>
-                            <a href="admin/delete_product.php?id=<?php echo $product['id']; ?>" 
-                               class="btn-delete" 
-                               onclick="return confirm('Are you sure you want to delete this product?')">
-                                Delete
-                            </a>
-                        </div>
-                    <?php endif; ?>
-                </div>
-            <?php endforeach; ?>
+            <?php if($products): ?>
+                <?php foreach($products as $product): ?>
+                    <div class="product-card">
+                        <img src="<?php echo htmlspecialchars($product['image']); ?>" 
+                             alt="<?php echo htmlspecialchars($product['name']); ?>">
+                        <h3><?php echo htmlspecialchars($product['name']); ?></h3>
+                        <p class="price">€<?php echo number_format($product['price'], 2); ?></p>
+                        <button onclick="addToCart(<?php echo $product['id']; ?>, 
+                                '<?php echo htmlspecialchars($product['name']); ?>', 
+                                <?php echo $product['price']; ?>)">
+                            Add to Cart
+                        </button>
+                    </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <p class="no-products">No products available at the moment.</p>
+            <?php endif; ?>
         </div>
     </section>
 
-    <script>
-    function addToCart(productName, price) {
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-        cart.push({
-            name: productName,
-            price: price
-        });
-        localStorage.setItem('cart', JSON.stringify(cart));
-        document.getElementById('cart-count').textContent = cart.length;
-        window.location.href = 'cart.php';
-    }
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section social-section">
+                <h3>TechWORLD</h3>
+                <p>Connect with us on social media!</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
 
-    window.onload = function() {
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-        document.getElementById('cart-count').textContent = cart.length;
-    }
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.php">Home</a></li>
+                    <li><a href="about.php">About</a></li>
+                    <li><a href="courses.html">Courses</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Useful Links</h4>
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Ask Questions</a></li>
+                    <li><a href="#">Send Feedback</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Newsletter</h4>
+                <p>Subscribe for updates</p>
+                <form action="#" method="POST" class="newsletter-form">
+                    <input type="email" placeholder="Enter your email" required>
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 TechWORLD. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function addToCart(id, name, price) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            
+            // Check if product already exists in cart
+            let existingProduct = cart.find(item => item.id === id);
+            
+            if (existingProduct) {
+                existingProduct.quantity += 1;
+            } else {
+                cart.push({
+                    id: id,
+                    name: name,
+                    price: price,
+                    quantity: 1
+                });
+            }
+            
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+            
+            // Show success message
+            alert('Product added to cart successfully!');
+        }
+
+        function updateCartCount() {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            let totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            document.getElementById('cart-count').textContent = totalItems;
+        }
+
+        // Update cart count when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCartCount();
+        });
+
+        // Mobile menu toggle
+        function toggleMenu() {
+            document.querySelector('nav ul').classList.toggle('show');
+        }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const nav = document.querySelector('nav ul');
+            const hamburger = document.querySelector('.hamburger');
+            
+            if (!nav.contains(event.target) && !hamburger.contains(event.target)) {
+                nav.classList.remove('show');
+            }
+        });
     </script>
 </body>
 </html>
