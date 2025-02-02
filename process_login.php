@@ -8,14 +8,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = trim($_POST['email']);
     $password = trim($_POST['password']);
     
-    // Validimi bazik
+  
     if (empty($email) || empty($password)) {
         $_SESSION['error'] = "Të gjitha fushat duhet të plotësohen!";
         header("Location: login.php");
         exit();
     }
     
-    // Kontrollo kredencialet
+  
     $user = $db->loginUser($email, $password);
     
     if ($user) {
@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $_SESSION['user_name'] = $user['name'];
         $_SESSION['user_role'] = $user['role'];
         
-        // Ridrejto bazuar në rol
+       
         if ($user['role'] == 'admin') {
             header("Location: admin/dashboard.php");
         } else {

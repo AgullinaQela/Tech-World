@@ -1,14 +1,8 @@
 <?php
 require_once 'config.php';
 
-// Kontrollo nëse tabela users ekziston
-$create_table = "CREATE TABLE IF NOT EXISTS users (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(50) NOT NULL UNIQUE,
-    password VARCHAR(255) NOT NULL,
-    email VARCHAR(100) NOT NULL,
-    role VARCHAR(20) NOT NULL DEFAULT 'user'
-)";
+
+
 
 if ($conn->query($create_table)) {
     $message = "Tabela users u krijua me sukses";
@@ -17,13 +11,13 @@ if ($conn->query($create_table)) {
     exit();
 }
 
-// Të dhënat e adminit
+
 $username = "Arber";
 $password = password_hash("arber123", PASSWORD_DEFAULT);
 $email = "arber@gmail.com";
 $role = "admin";
 
-// Kontrollo nëse admin-i ekziston
+
 $check_sql = "SELECT * FROM users WHERE username = ?";
 $check_stmt = $conn->prepare($check_sql);
 $check_stmt->bind_param("s", $username);
@@ -34,7 +28,7 @@ if ($result->num_rows > 0) {
     $message = "Admini ekziston tashmë!";
     $credentials = true;
 } else {
-    // Krijo admin-in
+
     $sql = "INSERT INTO users (username, password, email, role) VALUES (?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
     

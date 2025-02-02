@@ -14,10 +14,10 @@ try {
     die("Connection failed: " . $e->getMessage());
 }
 
-// Set UTF-8
+
 $conn->exec("SET NAMES 'utf8'");
 
-// CRUD Functions
+
 function shtoTeDhena($conn, $tabela, $te_dhenat) {
     $kolonat = implode(", ", array_keys($te_dhenat));
     $vlerat = "'" . implode("', '", array_values($te_dhenat)) . "'";

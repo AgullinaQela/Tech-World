@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = trim($_POST['email']);
     $password = trim($_POST['password']);
     
-    // Debug info
+  
     error_log("Login attempt with email: " . $email);
     
     $user = $db->loginUser($email, $password);
@@ -147,7 +147,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             document.querySelector('nav ul').classList.toggle('show');
         }
 
-        // Close mobile menu when clicking outside
+        
         document.addEventListener('click', function(event) {
             const nav = document.querySelector('nav ul');
             const hamburger = document.querySelector('.hamburger');

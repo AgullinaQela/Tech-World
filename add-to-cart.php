@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['cart'] = [];
             }
             
-            // Check if product already exists in cart
+           
             $found = false;
             foreach ($_SESSION['cart'] as &$item) {
                 if ($item['id'] === $product_id) {

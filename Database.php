@@ -14,7 +14,7 @@ class Database {
                 $this->password
             );
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            // Për debugging
+           
             error_log("Database connection successful");
         } catch (PDOException $e) {
             error_log("Connection failed: " . $e->getMessage());
@@ -160,22 +160,22 @@ class Database {
         try {
             $stats = [];
          
-            // Total products
+            
             $sql = "SELECT COUNT(*) as total FROM products";
             $stmt = $this->conn->query($sql);
             $stats['total_products'] = $stmt->fetch(PDO::FETCH_ASSOC)['total'];
             
-            // Total users
+            
             $sql = "SELECT COUNT(*) as total FROM users";
             $stmt = $this->conn->query($sql);
             $stats['total_users'] = $stmt->fetch(PDO::FETCH_ASSOC)['total'];
             
-            // Latest products
+           
             $sql = "SELECT * FROM products ORDER BY id DESC LIMIT 5";
             $stmt = $this->conn->query($sql);
             $stats['latest_products'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
             
-            // Latest users
+            
             $sql = "SELECT * FROM users ORDER BY id DESC LIMIT 5";
             $stmt = $this->conn->query($sql);
             $stats['latest_users'] = $stmt->fetchAll(PDO::FETCH_ASSOC);

@@ -139,12 +139,12 @@
 </body>
 </html><?php
 session_start();
-// Kontrollo nëse përdoruesi është i loguar
+
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.html");
     exit();
 }
-// Merr të dhënat e përdoruesit
+
 $userName = $_SESSION['user_name'];
 $userRole = $_SESSION['user_role'];
 ?>

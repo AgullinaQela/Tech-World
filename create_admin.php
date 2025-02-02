@@ -1,7 +1,7 @@
 <?php
 require_once 'config.php';
 
-// Kontrollo nëse admin-i ekziston
+
 $check_sql = "SELECT * FROM users WHERE username = 'admin'";
 $result = $conn->query($check_sql);
 

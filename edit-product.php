@@ -2,13 +2,12 @@
 session_start();
 require_once 'config.php';
 
-// Check if user is logged in and is admin
+
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
     header('Location: login.php');
     exit();
 }
 
-// Get product data
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
     $sql = "SELECT * FROM products WHERE id = ?";
@@ -19,7 +18,7 @@ if (isset($_GET['id'])) {
     $product = $result->fetch_assoc();
 }
 
-// Handle form submission
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id = $_POST['id'];
     $name = $_POST['name'];
@@ -108,12 +107,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 
     <script>
-        // Toggle sidebar
+     
         document.querySelector('.sidebar-toggle').addEventListener('click', function() {
             document.querySelector('.dashboard-sidebar').classList.toggle('active');
         });
 
-        // Close sidebar when clicking outside
         document.addEventListener('click', function(event) {
             const sidebar = document.querySelector('.dashboard-sidebar');
             const toggle = document.querySelector('.sidebar-toggle');

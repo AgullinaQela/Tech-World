@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once '../Database.php';
-// Kontrollo nëse përdoruesi është admin
+
 if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'admin') {
     header('Location: ../login.php');
     exit();
@@ -22,8 +22,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $description = trim($_POST['description']);
     $price = floatval($_POST['price']);
     
-    // Handle file upload
-    $image = $product['image']; // Keep existing image by default
+   
+    $image = $product['image']; 
     if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
         $allowed = ['jpg', 'jpeg', 'png', 'gif'];
         $filename = $_FILES['image']['name'];

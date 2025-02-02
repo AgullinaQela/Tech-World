@@ -140,7 +140,7 @@ $products = $db->getAllProducts();
         function addToCart(id, name, price) {
             let cart = JSON.parse(localStorage.getItem('cart')) || [];
             
-            // Check if product already exists in cart
+        
             let existingProduct = cart.find(item => item.id === id);
             
             if (existingProduct) {
@@ -157,7 +157,7 @@ $products = $db->getAllProducts();
             localStorage.setItem('cart', JSON.stringify(cart));
             updateCartCount();
             
-            // Show success message
+          
             alert('Product added to cart successfully!');
         }
 
@@ -167,17 +167,16 @@ $products = $db->getAllProducts();
             document.getElementById('cart-count').textContent = totalItems;
         }
 
-        // Update cart count when page loads
         document.addEventListener('DOMContentLoaded', function() {
             updateCartCount();
         });
 
-        // Mobile menu toggle
+        
         function toggleMenu() {
             document.querySelector('nav ul').classList.toggle('show');
         }
 
-        // Close mobile menu when clicking outside
+       
         document.addEventListener('click', function(event) {
             const nav = document.querySelector('nav ul');
             const hamburger = document.querySelector('.hamburger');

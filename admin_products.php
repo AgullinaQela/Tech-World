@@ -2,7 +2,7 @@
 session_start();
 require_once 'Database.php';
 
-// Check if user is admin
+
 if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 'admin') {
     header('Location: login.php');
     exit();
@@ -237,7 +237,7 @@ $products = $db->getAllProducts();
     </div>
 
     <script>
-        // Show confirmation before deleting
+     
         function confirmDelete() {
             return confirm('Are you sure you want to delete this product?');
         }

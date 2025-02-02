@@ -1,7 +1,7 @@
 <?php
 include 'db.php';
 
-// Lexo të gjitha produktet
+
 $sql = "SELECT * FROM products";
 $result = $conn->query($sql);
 ?>
@@ -18,7 +18,7 @@ $result = $conn->query($sql);
 
 <h2>Admin Dashboard - Menaxhimi i Produkteve</h2>
 
-<!-- Forma për Shtimin e Produktit -->
+
 <h3>Shto Produkt të Ri</h3>
 <form method="POST" action="manage_products.php">
     <input type="hidden" name="action" value="add">
@@ -30,7 +30,7 @@ $result = $conn->query($sql);
 
 <hr>
 
-<!-- Lista e Produkteve -->
+
 <h3>Lista e Produkteve</h3>
 <table border="1">
     <tr>
@@ -62,7 +62,7 @@ $result = $conn->query($sql);
     <?php endwhile; ?>
 </table>
 
-<!-- Forma për Përditësimin e Produktit -->
+
 <div id="editForm" style="display:none;">
     <h3>Përditëso Produktin</h3>
     <form method="POST" action="manage_products.php">

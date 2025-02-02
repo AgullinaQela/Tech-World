@@ -166,10 +166,10 @@ require_once 'config.php';
         }
 
 
-        // Auto change background every 5 seconds
+       
         setInterval(nextBackground, 5000);
 
-        // Initialize background
+       
         changeBackground();
         </script>
 </body>

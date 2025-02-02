@@ -137,7 +137,7 @@
 
       <script>
       function addToCart(productName, price) {
-          // Ruaj produktin në localStorage
+       
           let cart = JSON.parse(localStorage.getItem('cart')) || [];
           cart.push({
               name: productName,
@@ -145,14 +145,13 @@
           });
           localStorage.setItem('cart', JSON.stringify(cart));
 
-          // Përditëso numëruesin e shportës
           document.getElementById('cart-count').textContent = cart.length;
 
-          // Ridrejto tek faqja e shportës
+       
           window.location.href = 'cart.html';
       }
       
-      // Ngarko numëruesin e shportës kur faqja hapet
+     
       window.onload = function() {
           let cart = JSON.parse(localStorage.getItem('cart')) || [];
           document.getElementById('cart-count').textContent = cart.length;

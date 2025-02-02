@@ -9,7 +9,7 @@ try {
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     echo "Connected successfully to database<br>";
     
-    // Test if users table exists
+   
     $result = $conn->query("SHOW TABLES LIKE 'users'");
     if($result->rowCount() > 0) {
         echo "Table 'users' exists<br>";
