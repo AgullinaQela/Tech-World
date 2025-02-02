@@ -12,13 +12,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $password = trim($_POST['password']);
     $confirm_password = trim($_POST['confirm_password']);
     
-    // Regex për validim
+   
     $nameRegex = "/^[a-zA-Z\s]{3,50}$/";
     $passwordRegex = "/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/";
     
     $error = false;
     
-    // Validimi i të dhënave
+   
     if (empty($name) || empty($email) || empty($password) || empty($confirm_password)) {
         $_SESSION['error'] = "All fields are required!";
         $error = true;
