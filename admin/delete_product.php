@@ -27,4 +27,4 @@ if ($id) {
 }
 
 header('Location: ../products.php');
-exit();
+exit(); 

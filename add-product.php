@@ -1,34 +1,42 @@
 <?php
 session_start();
-require_once 'config.php';
+require_once '../Database.php';
 
-// Check if user is logged in and is admin
-if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
-    header('Location: login.php');
+// Kontrollo nëse përdoruesi është admin
+if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'admin') {
+    header('Location: ../login.php');
     exit();
 }
 
-// Handle form submission
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $name = $_POST['name'];
-    $price = $_POST['price'];
+$db = new Database();
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $name = trim($_POST['name']);
+    $description = trim($_POST['description']);
+    $price = floatval($_POST['price']);
+    $userId = $_SESSION['user_id'];
     
     // Handle file upload
-    if (isset($_FILES['image']) && $_FILES['image']['error'] === 0) {
-        $target_dir = "Images/";
-        $target_file = $target_dir . basename($_FILES["image"]["name"]);
+    $image = '';
+    if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
+        $allowed = ['jpg', 'jpeg', 'png', 'gif'];
+        $filename = $_FILES['image']['name'];
+        $filetype = pathinfo($filename, PATHINFO_EXTENSION);
         
-        if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
-            // Insert into database
-            $sql = "INSERT INTO products (name, price, image) VALUES (?, ?, ?)";
-            $stmt = $conn->prepare($sql);
-            $stmt->bind_param("sds", $name, $price, $target_file);
-            
-            if ($stmt->execute()) {
-                header('Location: manage-products.php?success=1');
-                exit();
+        if (in_array(strtolower($filetype), $allowed)) {
+            $newname = uniqid() . '.' . $filetype;
+            if (move_uploaded_file($_FILES['image']['tmp_name'], '../uploads/' . $newname)) {
+                $image = $newname;
             }
         }
+    }
+    
+    if ($db->addProduct($name, $description, $price, $image, $userId)) {
+        $_SESSION['success'] = 'Product added successfully';
+        header('Location: ../products.php');
+        exit();
+    } else {
+        $_SESSION['error'] = 'Error adding product';
     }
 }
 ?>
@@ -38,72 +46,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Product - Admin Dashboard</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Add Product - TechWORLD</title>
+    <link rel="stylesheet" href="../style.css">
 </head>
 <body>
-    <div class="dashboard-container">
-        <button class="sidebar-toggle">☰</button>
+    <div class="admin-container">
+        <h2>Add New Product</h2>
         
-        <aside class="dashboard-sidebar">
-            <div class="sidebar-header">
-                <h2>Admin Panel</h2>
+        <?php if (isset($_SESSION['error'])): ?>
+            <div class="error"><?php echo $_SESSION['error']; unset($_SESSION['error']); ?></div>
+        <?php endif; ?>
+        
+        <form method="POST" enctype="multipart/form-data" class="admin-form">
+            <div class="form-group">
+                <label>Product Name:</label>
+                <input type="text" name="name" required>
             </div>
-            <nav class="sidebar-nav">
-                <ul>
-                    <li><a href="dashboard.php"><i class="fas fa-home"></i> Dashboard</a></li>
-                    <li><a href="manage-products.php" class="active"><i class="fas fa-box"></i> Products</a></li>
-                    <li><a href="manage-users.php"><i class="fas fa-users"></i> Users</a></li>
-                    <li><a href="settings.php"><i class="fas fa-cog"></i> Settings</a></li>
-                    <li><a href="logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
-                </ul>
-            </nav>
-        </aside>
-
-        <main class="dashboard-content">
-            <div class="content-header">
-                <h1>Add New Product</h1>
-            </div>
-
-            <div class="dashboard-form">
-                <form method="POST" enctype="multipart/form-data">
-                    <div class="form-group">
-                        <label for="name">Product Name</label>
-                        <input type="text" id="name" name="name" class="form-control" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="price">Price</label>
-                        <input type="number" id="price" name="price" step="0.01" class="form-control" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="image">Product Image</label>
-                        <input type="file" id="image" name="image" class="form-control" accept="image/*" required>
-                    </div>
-
-                    <button type="submit" class="submit-btn">Add Product</button>
-                </form>
-            </div>
-        </main>
-    </div>
-
-    <script>
-        // Toggle sidebar
-        document.querySelector('.sidebar-toggle').addEventListener('click', function() {
-            document.querySelector('.dashboard-sidebar').classList.toggle('active');
-        });
-
-        // Close sidebar when clicking outside
-        document.addEventListener('click', function(event) {
-            const sidebar = document.querySelector('.dashboard-sidebar');
-            const toggle = document.querySelector('.sidebar-toggle');
             
-            if (!sidebar.contains(event.target) && !toggle.contains(event.target)) {
-                sidebar.classList.remove('active');
-            }
-        });
-    </script>
+            <div class="form-group">
+                <label>Description:</label>
+                <textarea name="description" required></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label>Price (€):</label>
+                <input type="number" name="price" step="0.01" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Image:</label>
+                <input type="file" name="image" required>
+            </div>
+            
+            <button type="submit" class="btn">Add Product</button>
+            <a href="../products.php" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
 </body>
 </html>
