@@ -1,6 +1,10 @@
 <?php
 session_start();
+
 require_once 'Database.php';
+=======
+include 'config.php';
+
 
 $db = new Database();
 $products = $db->getAllProducts();
@@ -22,6 +26,7 @@ $products = $db->getAllProducts();
             <button class="hamburger" onclick="toggleMenu()">☰</button>
             <nav>
                 <ul>
+
                     <li><a href="index.php">Home</a></li>
                     <li><a href="about.php">About</a></li>
                     <li><a href="courses.php">Courses</a></li>
@@ -42,6 +47,16 @@ $products = $db->getAllProducts();
                             <span id="cart-count">0</span>
                         </a>
                     </li>
+
+                <li><a href="index.php">Home</a></li> 
+                    <li><a href="about.php">About</a></li> 
+                    <li><a href="courses.html">Courses</a></li> 
+                    <li><a href="Products.php">Products</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="login.php">Login</a></li>
+                    <li><a href="register.php">Register</a></li> 
+                    <li><a href="cart.html" class="cart-link" id="cart-icon"><i class="fas fa-shopping-cart"></i> <span id="cart-count">0</span></a></li>
+
                 </ul>
             </nav>
         </div>
