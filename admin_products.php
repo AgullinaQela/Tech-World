@@ -162,7 +162,6 @@ $products = $db->getAllProducts();
                     <li><a href="index.php">Back to Site</a></li>
                     <li><a href="dashboard.php">Dashboard</a></li>
                     <li><a href="admin_products.php" class="active">Products</a></li>
-                    <li><a href="admin_users.php">Users</a></li>
                     <li><a href="logout.php">Logout</a></li>
                 </ul>
             </nav>
