@@ -4,31 +4,26 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 require_once 'config.php';
 
-// Check if user is admin
 if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 'admin') {
     header('Location: login.php');
     exit();
 }
 
-// Get total products
 $sql = "SELECT COUNT(*) as total FROM products";
 $stmt = $conn->prepare($sql);
 $stmt->execute();
 $total_products = $stmt->fetch(PDO::FETCH_ASSOC)['total'];
 
-// Get total users
 $sql = "SELECT COUNT(*) as total FROM users";
 $stmt = $conn->prepare($sql);
 $stmt->execute();
 $total_users = $stmt->fetch(PDO::FETCH_ASSOC)['total'];
 
-// Get latest products
 $sql = "SELECT * FROM products ORDER BY id DESC LIMIT 5";
 $stmt = $conn->prepare($sql);
 $stmt->execute();
 $latest_products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// Get latest users
 $sql = "SELECT * FROM users ORDER BY id DESC LIMIT 5";
 $stmt = $conn->prepare($sql);
 $stmt->execute();
@@ -36,7 +31,7 @@ $latest_users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
-<!-- ... HTML pjesa e sipërme mbetet e njëjtë ... -->
+
 
         <div class="latest-section">
             <div class="section-header">

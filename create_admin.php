@@ -8,7 +8,6 @@ $email = "agullinaqela@gmail.com";
 $password = "agullina123";
 $role = "admin";
 
-// Kontrollo nëse admin ekziston
 if (!$db->emailExists($email)) {
     if ($db->registerUser($name, $email, $password, $role)) {
         echo "Admin u krijua me sukses!<br>";

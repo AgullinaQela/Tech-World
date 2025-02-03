@@ -1,14 +1,12 @@
 <?php
 session_start();
-require_once 'config.php';  // Changed from '../Database.php'
+require_once 'config.php';  
 
-// Check if user is admin
 if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 'admin') {
     header('Location: login.php');
     exit();
 }
 
-// Check if ID is provided
 if (!isset($_GET['id'])) {
     header('Location: admin_products.php');
     exit();
@@ -16,7 +14,6 @@ if (!isset($_GET['id'])) {
 
 $id = (int)$_GET['id'];
 
-// Get product details
 $sql = "SELECT * FROM products WHERE id = :id";
 $stmt = $conn->prepare($sql);
 $stmt->bindParam(':id', $id);
@@ -28,23 +25,21 @@ if (!$product) {
     exit();
 }
 
-// Handle form submission
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $name = trim($_POST['name']);
     $price = (float)$_POST['price'];
     
-    // Check if new image is uploaded
     if (!empty($_FILES['image']['name'])) {
         $target_dir = "Images/";
         $target_file = $target_dir . basename($_FILES["image"]["name"]);
         
         if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
-            // Delete old image if exists
+            
             if (file_exists($product['image'])) {
                 unlink($product['image']);
             }
             
-            // Update with new image
+            
             $sql = "UPDATE products SET name = :name, price = :price, image = :image WHERE id = :id";
             $stmt = $conn->prepare($sql);
             $stmt->bindParam(':image', $target_file);
@@ -54,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             exit();
         }
     } else {
-        // Update without changing image
+       
         $sql = "UPDATE products SET name = :name, price = :price WHERE id = :id";
         $stmt = $conn->prepare($sql);
     }

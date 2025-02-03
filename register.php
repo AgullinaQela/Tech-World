@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $password = trim($_POST['password']);
     $confirm_password = trim($_POST['confirm_password']);
     
-    // Validate input
+    
     if (empty($name) || empty($email) || empty($password)) {
         $_SESSION['error'] = "All fields are required!";
     } elseif ($password !== $confirm_password) {

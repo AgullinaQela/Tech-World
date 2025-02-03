@@ -2,7 +2,7 @@
 session_start();
 require_once '../config.php';
 
-// Krijo instancën e User
+
 $user = new User($conn);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
