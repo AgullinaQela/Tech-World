@@ -1401,8 +1401,6 @@ body {
     color: #ff9900;
   }
 
-  
-  /* Për shportën që do të shfaqet lart */
 .cart {
     position: fixed;
     top: 20px;
@@ -1411,14 +1409,11 @@ body {
     color: white;
     padding: 10px 20px;
     font-size: 16px;
-    display: none; /* Fillimisht e fshehur */
+    display: none;
     border-radius: 5px;
     z-index: 1000;
   }
 
-
-  /* Fshij stilet e vjetra te add-to-cart */
-  /* Stili për butonin "Add to Cart" */
   .product-card button {
     background-color: #ff9900;
     color: white;
@@ -1445,7 +1440,7 @@ body {
     transform: scale(0.98);
     background-color: #cc7a00;
   }
-  /* Butoni "Add to Cart" */
+ 
   .add-to-cart {
     background-color: #ff9900;
     color: white;
@@ -1457,12 +1452,11 @@ body {
     margin-top: 10px;
   }
   
-  /* Butoni "Add to Cart" në hover */
+
   .add-to-cart:hover {
     background-color: #cc7a00;
   }
 
-  /* Stili për shportën në meny */
 .navbar .cart-link {
     background-color: #ff9900;
     color: white;
@@ -1478,12 +1472,12 @@ body {
     margin-right: 8px;
   }
   
-  /* Aktivizo ikona e shportës kur ka artikuj */
+ 
   .navbar .cart-link.active {
     background-color: #cc7a00;
   }
   
-  /* Për qarkullimin e shportës me artikuj */
+  
   .navbar .cart-link.active i {
     color: #fff;
   }

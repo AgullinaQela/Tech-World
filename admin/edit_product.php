@@ -2,7 +2,6 @@
 session_start();
 require_once '../Database.php';
 
-// Kontrollo nëse përdoruesi është admin
 if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'admin') {
     header('Location: ../login.php');
     exit();
@@ -28,8 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $description = trim($_POST['description']);
     $price = floatval($_POST['price']);
     
-    // Handle file upload
-    $image = $product['image']; // Keep existing image by default
+    $image = $product['image']; 
     if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
         $allowed = ['jpg', 'jpeg', 'png', 'gif'];
         $filename = $_FILES['image']['name'];
@@ -38,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if (in_array(strtolower($filetype), $allowed)) {
             $newname = uniqid() . '.' . $filetype;
             if (move_uploaded_file($_FILES['image']['tmp_name'], '../uploads/' . $newname)) {
-                // Delete old image if exists
+               
                 if ($product['image'] && file_exists('../uploads/' . $product['image'])) {
                     unlink('../uploads/' . $product['image']);
                 }

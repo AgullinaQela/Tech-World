@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-// Kontrollo nëse përdoruesi është i loguar dhe është admin
+
 if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'admin') {
     header("Location: ../login.php");
     exit();
@@ -59,7 +59,6 @@ $stats = $db->getDashboardStats();
                         <tr>
                             <th>Name</th>
                             <th>Price</th>
-                            <th>Added By</th>
                             <th>Date</th>
                             <th>Actions</th>
                         </tr>
@@ -67,10 +66,10 @@ $stats = $db->getDashboardStats();
                     <tbody>
                         <?php foreach ($stats['latest_products'] as $product): ?>
                         <tr>
-                            <td><?php echo htmlspecialchars($product['name']); ?></td>
-                            <td>€<?php echo number_format($product['price'], 2); ?></td>
-                            <td><?php echo htmlspecialchars($product['added_by']); ?></td>
-                            <td><?php echo date('d/m/Y', strtotime($product['created_at'])); ?></td>
+                        <td><?php echo htmlspecialchars($product['name']) . "&nbsp;&nbsp;&nbsp;"; ?></td>
+                        <td>€<?php echo number_format($product['price'], 2) . "&nbsp;&nbsp;&nbsp;"; ?></td>
+                        <td><?php echo date('d/m/Y', strtotime($product['created_at'])) . "&nbsp;&nbsp;&nbsp;"; ?></td>
+
                             <td>
                                 <a href="edit_product.php?id=<?php echo $product['id']; ?>" 
                                    class="btn-small btn-edit">Edit</a>

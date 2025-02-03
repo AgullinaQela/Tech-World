@@ -1,5 +1,5 @@
 function toggleMenu() {
-    document.querySelector("nav ul").classList.toggle("show");
+    document.querySelector('nav ul').classList.toggle('show');
 }
 
 const heroSection = document.querySelector('.hero');
